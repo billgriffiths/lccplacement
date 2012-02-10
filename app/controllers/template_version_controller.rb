@@ -12,7 +12,8 @@ class TemplateVersionController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @template_version_pages, @template_versions = paginate :template_versions, :per_page => 10
+#    @template_version_pages, @template_versions = paginate :template_versions, :per_page => 10
+    @template_versions = TemplateVersion.find(params[:all])
   end
 
   def show

@@ -9,7 +9,8 @@ class RecommendationController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @recommendation_pages, @recommendations = paginate :recommendations, :per_page => 20
+#    @recommendation_pages, @recommendations = paginate :recommendations, :per_page => 20
+    @recommendations = Recommendation.find(params[:all])
   end
 
   def show

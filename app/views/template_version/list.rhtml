@@ -19,9 +19,6 @@
 <% end %>
 </table>
 
-<%= link_to 'Previous page', { :page => @template_version_pages.current.previous } if @template_version_pages.current.previous %>
-<%= link_to 'Next page', { :page => @template_version_pages.current.next } if @template_version_pages.current.next %> 
-
 <br />
 
 <%= link_to 'New template_version', :action => 'new' %>

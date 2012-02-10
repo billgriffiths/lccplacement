@@ -179,7 +179,8 @@ class StudentsController < ApplicationController
   end
 
   def list
-    @student_pages, @students = paginate :students, :per_page => 10
+#    @student_pages, @students = paginate :students, :per_page => 10
+    @students = Student.find(params[:all])
   end
 
   def show

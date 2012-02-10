@@ -12,7 +12,8 @@ class ProcedureController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @procedure_pages, @procedures = paginate :procedures, :per_page => 10
+#    @procedure_pages, @procedures = paginate :procedures, :per_page => 10
+    @procedures = Procedure.find(:all)
   end
 
   def show
