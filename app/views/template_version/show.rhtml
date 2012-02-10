@@ -1,0 +1,8 @@
+<% for column in TemplateVersion.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @template_version.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @template_version %> |
+<%= link_to 'Back', :action => 'list' %>

@@ -1,0 +1,32 @@
+<div id="banner">
+	<div id="title">
+  <%= @page_title || "Mathematics Placement Exams" %>
+	</div>
+</div>
+<div id="logo">
+    <%= image_tag("in-logo.gif", :width => 162) %>
+</div>
+<div id="main">
+
+
+	<h1>Student Login</h1>
+
+	<div class="user-form">
+		<%= error_messages_for 'student' %>
+	    <% if flash[:notice] -%>
+	      <div id="notice"><%= flash[:notice] %></div>
+	    <% end -%>
+	
+		<fieldset>
+			<legend>Enter Student ID</legend>
+			<% form_tag :action => 'student_login' do %>
+			<p>
+				<label for="student_number">Student ID:</label>
+				<%= text_field_tag (:student_number, "",:size => 10) %>
+			</p>
+			<%= submit_tag "Login" %>
+			<% end %>
+		</fieldset>
+	</div>
+
+</div>

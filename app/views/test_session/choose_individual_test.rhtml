@@ -1,0 +1,21 @@
+<div id="main">
+
+<h1>Choose Individual Test</h1>
+
+<%= error_messages_for 'test_session' %>
+
+<% if flash[:notice] -%>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end -%>
+
+<% form_tag :action => 'set_individual_test' do %>
+<table>
+	<tr><th>Choose Test</th></tr>
+	<% thetests = @tests %>
+	<%= render(:partial => "thetest", :collection => thetests) -%>
+</table>
+
+  <%= submit_tag 'Continue' %>
+<% end %>
+
+</div>

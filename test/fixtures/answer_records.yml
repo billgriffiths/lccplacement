@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  problem: MyString
+  decoded_answer: MyString
+  start_time: 2007-11-05 13:16:53
+  test_result_id: 1
+  test_template_id: 1
+two:
+  id: 2
+  problem: MyString
+  decoded_answer: MyString
+  start_time: 2007-11-05 13:16:53
+  test_result_id: 1
+  test_template_id: 1

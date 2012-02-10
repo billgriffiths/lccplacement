@@ -1,0 +1,12 @@
+<h1>Upload Test</h1>
+
+<%= error_messages_for("test_template") %>
+<h2>Use FireFox to do this upload</h2>
+<p>Test names are unique. If a test is uploaded with the same name as a current test a new version of the test is saved. If the test name is different from any current test the test is saved as a new test.</p>
+<% form_for(:test_template, :url => {:action => 'upload_test'},
+					:html => {:multipart => true}) do |form| %>
+	Test: <%= form.file_field("uploaded_test", :size => 40) %><p>
+	Description: <%= form.text_field("description", :size => 40) %></p>
+	
+	<%= submit_tag("upload test") %>
+<% end %>

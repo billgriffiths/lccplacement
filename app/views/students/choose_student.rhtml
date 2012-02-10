@@ -1,0 +1,44 @@
+<h1>Choose Student</h1>
+
+<p>First letter of last name</p>
+
+<% l = "A" %>
+<% 26.times do %>
+	<%= link_to ("#{l}"), {:action => 'choose_student', :letter => l}, :method => :post %>
+	<% l = l.succ %>
+<% end %>
+<p>
+<div class="user-form">
+	<%= error_messages_for 'student' %>
+	
+	<fieldset>
+		<legend>Enter Partial Student Data</legend>
+		<% form_tag :action => 'choose_student' do %>
+		<p>
+			<label for="first_name">First Name:</label>
+			<%= text_field_tag :first_name, "", :size => 40 %>
+		</p>
+		<p>
+			<label for="last_name">Last Name:</label>
+			<%= text_field_tag :last_name, "", :size => 40 %>
+		</p>
+		<p>
+			<label for="student_number">Student ID:</label>
+			<%= text_field_tag :student_number, "", :size => 40 %>
+		</p>
+		<%= submit_tag "Show Matching Students", :class => "submit" %>
+		<% end %>
+	</fieldset>
+</div>
+<span class="advice">
+	Clicking on Show Matching Students with all blank fields will give a list of all students
+</span>
+<br>
+<% if @students and not @students.empty? %>
+	<% @students.each do |s| %>
+		<br>
+		<%= link_to ("#{s.last_name}, #{s.first_name}, #{s.student_number}"), {:action => "#{session[:student_action]}", :id => s}, :method => :post %>
+		</br>
+	<% end %>
+<% end %>
+	

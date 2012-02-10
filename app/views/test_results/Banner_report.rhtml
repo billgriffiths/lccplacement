@@ -1,0 +1,16 @@
+<h1>Banner Report by Date</h1>
+
+<div class="user-form">
+	<%= error_messages_for 'test_results' %>
+	
+	<fieldset>
+		<legend>Enter the Date for Banner Report</legend>
+		<% form_tag :action => 'get_Banner_results_by_date' do %>
+		<p>
+			<label for="the_date">Date:</label>
+			<%= select_date(Date.today,:prefix => "the_date",:order => [:month, :day, :year]) %>
+		</p>
+		<%= submit_tag "Get Results", :class => "submit" %>
+		<% end %>
+	</fieldset>
+</div>

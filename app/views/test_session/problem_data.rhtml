@@ -1,0 +1,29 @@
+<h1>Analyze Problem</h1>
+<h3><%= @problem_name %></h3>
+<table cellspacing=20>
+	<tr>
+		<td>
+		<table>
+			<tr>
+			<th>Answer</th><th>Frequency</th>
+			</tr>
+			<% l = "A" %>
+			<% @n.times do %>
+				<tr><td><%= l %></td><td><%= @frequency[l] %></td></tr>
+				<% l = l.succ %>
+			<% end %>
+			<tr><td>None</td><td><%= @frequency["N"] %></td></tr>
+		</table>
+		</td>
+		<TD style="width: 512px; vertical-align: top; text-align: left;" width=512>
+			<% name = @problem_name[0,@problem_name.length-1-@ext.length]%>
+			<% if @ext == 'pedr' %>
+			<IMG align=top src="http://math.lanecc.edu/problems/PEmultchoiceimages/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
+			<% elsif @ext == '5jpg' %>
+			<IMG align=top src="http://math.lanecc.edu/problems/5multchoiceimages/<%=URI.encode(name)%>/12345" BORDER=1>
+			<% else %>
+			<IMG align=top src="http://math.lanecc.edu/problems/MRC/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
+			<% end %>
+		</TD>
+	</tr>
+</table>

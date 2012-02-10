@@ -1,0 +1,27 @@
+<h1>Listing template_versions</h1>
+
+<table>
+  <tr>
+  <% for column in TemplateVersion.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for template_version in @template_versions %>
+  <tr>
+  <% for column in TemplateVersion.content_columns %>
+    <td><%=h template_version.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => template_version %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => template_version %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => template_version }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @template_version_pages.current.previous } if @template_version_pages.current.previous %>
+<%= link_to 'Next page', { :page => @template_version_pages.current.next } if @template_version_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New template_version', :action => 'new' %>

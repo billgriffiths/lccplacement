@@ -1,0 +1,43 @@
+<div id="banner">
+	<div id="title">
+  <%= @page_title || "Mathematics Placement Exams" %>
+	</div>
+</div>
+<div id="logo">
+    <%= image_tag("in-logo.gif", :width => 162) %>
+</div>
+<div id="main">
+
+
+	<h1>Student Login</h1>
+
+	<div class="user-form">
+		<%= error_messages_for 'student' %>
+	    <% if flash[:notice] -%>
+	      <div id="notice"><%= flash[:notice] %></div>
+	    <% end -%>
+	
+		<fieldset>
+			<legend>Enter Student Data</legend>
+			<% form_tag :action => 'student_login2' do %>
+			
+			<p><label for="student_student_number">Student ID:</label>
+				<%= text_field 'student', 'student_number'  %></p>
+
+			<p><label for="student_first_name">First name</label>
+				<%= text_field 'student', 'first_name'  %></p>
+
+			<p><label for="student_last_name">Last name</label>
+				<%= text_field 'student', 'last_name'  %></p>
+
+			<p><label for="student_birth_date">Birth date</label>
+				
+				<%= date_select('student', "birth_date", :start_year => Date.today.year-10, 
+				:end_year => Date.today.year-80, :prefix => 'birth_date', :order => [:month, :day, :year], :include_blank => true) %></p>
+				
+			<%= submit_tag "Login" %>
+			<% end %>
+		</fieldset>
+	</div>
+
+</div>

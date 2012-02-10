@@ -1,0 +1,9 @@
+<h1>Editing template_version</h1>
+
+<% form_tag :action => 'update', :id => @template_version do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @template_version %> |
+<%= link_to 'Back', :action => 'list' %>

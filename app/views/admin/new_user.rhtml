@@ -1,0 +1,32 @@
+<h1>New User</h1>
+
+<% form_for :user, :url => {:action => 'create_user', :id => @user} do |form| %>
+<p>
+	<label for="first_name">First Name:</label><br/>
+	<%= form.text_field :first_name %>
+</p>
+<p>
+	<label for="last_name">Last Name:</label><br/>
+	<%= form.text_field :last_name %>
+</p>
+<p>
+	<label for="user_name">User Name:</label><br/>
+	<%= form.text_field :user_name %>
+</p>
+<p>
+	<label for="user_password">Password:</label><br/>
+	<%= form.text_field :password %>
+</p>
+<p>
+	<label for="user_role">Role:</label><br/>
+	<%= form.select(:role, User::ROLE_TYPES ) %>
+</p>
+<p>
+	<label for="location">Location:</label><br/>
+	<%= form.text_field :location %>
+</p>
+<%= submit_tag "Add New User", :class => "submit" %>
+<% end %>
+<p/>
+
+<%= link_to 'Back', :action => 'list_users' %>

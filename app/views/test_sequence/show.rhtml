@@ -1,0 +1,27 @@
+<% for column in TestSequence.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @test_sequence.send(column.name) %>
+</p>
+<% end %>
+<% text = @test_sequence.send("initial_recommendation") %>
+<% if not text.blank? %>
+	<% text_lines = text.split("\n") %>
+<% end %>
+<table cellpadding=5>
+  <tr>
+    <td><b><%=h @test_sequence.send("name") %></b></td>
+  </tr>
+  <tr>
+    <td><%=h @test_sequence.send("description") %></td>
+  </tr>
+	<% if not text.blank? %>
+		<% text_lines.each do |p| %>
+		  <tr>
+		    <td><%=h p %></td>
+		  </tr>
+		<% end %>
+	<% end %>
+</table>
+
+<%= link_to 'Edit', :action => 'edit', :id => @test_sequence %> |
+<%= link_to 'Back', :action => 'list' %>

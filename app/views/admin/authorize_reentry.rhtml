@@ -1,0 +1,21 @@
+<h1>Authorize Re-entry</h1>
+
+<table>
+  <tr>
+  <% for column in Student.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for student in @students %>
+  <tr>
+  <% for column in Student.content_columns %>
+    <td><%=h student.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Authorize', :controller => 'student', :action => 'authorize_reentry', :id => student %></td>
+   </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @student_pages.current.previous } if @student_pages.current.previous %>
+<%= link_to 'Next page', { :page => @student_pages.current.next } if @student_pages.current.next %> 

@@ -1,0 +1,29 @@
+<h1>Procedures</h1>
+
+<table cellpadding=5>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+  </tr>
+  
+<% user = User.find_by_id(session[:user_id]) %>
+<% for procedure in @procedures %>
+  <tr>
+    <td><%=h procedure.send("name") %></td>
+    <td><%=h procedure.send("description") %></td>
+    <td><%= link_to 'Show', :action => 'show', :id => procedure %></td>
+	<% if user && user.role == "administrator" %>
+    <td><%= link_to 'Edit', :action => 'edit', :id => procedure %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => procedure }, :confirm => 'Are you sure?', :method => :post %></td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @procedure_pages.current.previous } if @procedure_pages.current.previous %>
+<%= link_to 'Next page', { :page => @procedure_pages.current.next } if @procedure_pages.current.next %> 
+
+<p />
+<% if user && user.role == "administrator" %>
+	<%= link_to 'New procedure', :action => 'new' %>
+<% end %>

@@ -1,0 +1,40 @@
+<% if !@ajax_call %>
+<h1>Analyze Problem</h1>
+<h3><%= @problem_name %></h3>
+	<em>Choices on tests are scrambled. Here the data is for unscrambled (normalized) choices.
+	The normalized choice A is always the correct answer. The problem is shown with the choices normalized.</em>
+<% end %>
+<table cellspacing=20>
+	<tr>
+		<td>
+		<table>
+			<tr>
+			<th>Answer</th><th>Frequency</th>
+			</tr>
+			<% l = "A" %>
+			<% i = 0 %>
+			<% order = [] %>
+			<% @n.times do %>
+				<% i = i+1 %>
+				<% order << i %>
+				<tr><td><%= l %></td><td><%= @frequency[l] %></td></tr>
+				<% l = l.succ %>
+			<% end %>
+			<% answer_order = order.join(",") %>
+			<tr><td>None</td><td><%= @frequency["N"] %></td></tr>
+		</table>
+		</td>
+		<TD style="width: 512px; vertical-align: top; text-align: left;" width=512>
+			<% name = @problem_name[0,@problem_name.length-1-@ext.length]%>
+			<% if @ext == 'pedr' %>
+			<IMG align=top src="http://math.lanecc.edu/problems/PEmultchoiceimages/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
+			<% elsif @ext == 'pedx' %>
+				<IMG align=top src="http://math.lanecc.edu/problems/PEXmultchoiceimages/<%=URI.encode(name)%>/<%="#{answer_order}"%>" BORDER=1>
+			<% elsif @ext == '5jpg' %>
+			<IMG align=top src="http://math.lanecc.edu/problems/5multchoiceimages/<%=URI.encode(name)%>/12345" BORDER=1>
+			<% else %>
+			<IMG align=top src="http://math.lanecc.edu/problems/MRC/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
+			<% end %>
+		</TD>
+	</tr>
+</table>

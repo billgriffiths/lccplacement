@@ -1,0 +1,8 @@
+<% for column in TestResult.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @test_result.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @test_result %> |
+<%= link_to 'Back', :action => 'list' %>

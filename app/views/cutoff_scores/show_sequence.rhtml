@@ -1,0 +1,47 @@
+<h1>Test Sequence</h1>
+
+<h2><%=h @sequence.name %></h2>
+<h2><%=h @sequence.description %></h2>
+<h2>Start test: <%=h @default_test_name %></h2>
+<table>
+  <tr>
+    <th align=center>Position</th>
+    <th align=center>Test/Subsequence</th>
+    <th>Passing Score</th>
+    <th align=center>Pass</th>
+    <th align=center>Fail</th>
+  </tr>
+<% i = 0 %>
+<% for cutoff_score in @cutoff_scores %>
+<% i += 1 %>
+<% cutoff_score.seq_position = i*10 %>
+<% cutoff_score.save %>
+  <tr>
+    <td valign=top><%=h i %></td>
+  	<td width=150 align=left valign=top><%=h cutoff_score.description %></td>
+    <td width=50 align=center valign=top><%=h cutoff_score.send("score") %></td>
+	<% if cutoff_score.pass_cutoff_score.blank? %>
+    <td width=200 align=left valign=top><%=h cutoff_score.send("recommendation") %></td>
+	<% else %>
+		<td width=200 align=left valign=top>go to <%=h "#{CutoffScore.find(cutoff_score.pass_cutoff_score).display_seq_position}"%>
+	<% end %>
+	<% if cutoff_score.fail_cutoff_score.blank? %>
+    	<td width=200 align=left valign=top><%=h cutoff_score.send("alternate_recommendation") %></td>
+	<% else %>
+		<td width=200 align=left valign=top>go to <%=h "#{CutoffScore.find(cutoff_score.fail_cutoff_score).display_seq_position}"%>
+	<% end %>
+    <td valign=top><%= link_to 'Edit', :action => 'edit', :id => cutoff_score %></td>
+    <td valign=top><%= link_to 'Destroy', { :action => 'destroy', :id => cutoff_score }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<p />
+<% if @cutoff_scores.blank? %>
+	<label class="advice" >No test cutoff-scores currently in this sequence.</label><p/>
+<% end %>
+
+<%= link_to 'New cutoff-score record', :action => 'new_sequence_test', :id => @sequence %>
+<p/>
+<%= link_to 'Back', :controller => 'test_sequence', :action => 'list' %>
+

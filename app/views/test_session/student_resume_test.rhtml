@@ -1,0 +1,46 @@
+<div id="banner">
+	<div id="title">
+  <%= @page_title || "Mathematics Placement Exams" %>
+	</div>
+</div>
+<div id="logo">
+    <%= image_tag("in-logo.gif", :width => 162) %>
+</div>
+<div id="main">
+
+<h1>Resume Student Test</h1>
+
+<table>
+  <tr>
+  <% for column in Student.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+  <tr>
+  <% for column in Student.content_columns %>
+    <td><%=h @student.send(column.name) %></td>
+  <% end %>
+</tr>
+</table>
+
+<table>
+  <tr>
+    <th>Status</th>
+    <th>Test</th>
+    <th>Score</th>
+    <th>Start Time</th>
+  </tr>
+	<% for result in @test_results %>
+		 <tr>
+		   <td><%=result.status %></td>
+		   <td><%=TestTemplate.find(TemplateVersion.find(result.template_version_id).test_template_id).display_name %></td>
+		   <td><%=result.score %></td>
+		   <td><%=result.start_time.strftime("%H:%M %m/%d/%Y") %></td>
+		   <td><%=link_to("resume", {:action => 'authorize_resume_test', :id => result.id, :time_limit => 15}, :method => :post) %></td>
+		</tr>
+	<% end %>
+</table>
+<br><br>
+<%= link_to 'Logout', {:action => 'student_logout'}, :method => :post %>
+</div>

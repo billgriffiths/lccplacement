@@ -1,0 +1,31 @@
+<h1>Session Results by Date</h1>
+
+<table>
+  <tr>
+    <th align=left>last name</th>
+    <th align=left>first name</th>
+    <th align=left>birth date</th>
+    <th align=left>student id</th>
+    <th align=left>test</th>
+    <th align=left>score</th>
+    <th align=left>date</th>
+    <th align=left>location</th>
+  </tr>
+  
+<% if not @test_sessions.blank? %>
+<% for test_session in @test_sessions %>
+  <tr>
+	<% student=Student.find_by_id(test_session.student_id)%>
+	<% test = TestTemplate.find(test_session.final_test)%>
+    <td><%=h student.last_name %></td>
+    <td><%=h student.first_name %></td>
+    <td><%=h student.birth_date %></td>
+    <td><%=h student.student_number %></td>
+    <td><%=h test.code %></td>
+    <td><%=h test_session.send("final_score") %></td>
+    <td><%=h test_session.send("start_time").strftime("%m/%d/%Y") %></td>
+    <td><%=h test_session.send("location") %></td>
+  </tr>
+<% end %>
+<% end %>
+</table>

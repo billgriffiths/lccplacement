@@ -1,0 +1,7 @@
+<% if answer_item == @current_answer %>
+	<tr id="current_answer">
+<% else %>
+	<tr>
+<% end %>
+<td><a href="#<%= answer_item.split(" ")[0] %>"><%= answer_item %></a></td>
+</tr>

@@ -1,0 +1,7 @@
+<td><%= text_field 'cutoff_score', 'seq_postion', :size => 5  %></td>
+
+<td><%= collection_select('cutoff_score', 'test_template_id', TestTemplate.find(:all), 'id', 'description') %></td>
+
+<td><%= text_field 'cutoff_score', 'score', :size => 5  %></td>
+
+<td><%= text_field 'cutoff_score', 'recommendation'  %></td>

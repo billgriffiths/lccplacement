@@ -1,0 +1,25 @@
+<h1>Authorize Re-entry</h1>
+
+<% for column in Student.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @student.send(column.name) %>
+</p>
+<% end %>
+
+<% form_tag :action => 'authorize_reentry_test' do %>
+	<h2>Choose test to authorize re-entry:</h2>
+	<% tests = TestResult.find(:all, :conditions => ["student_id = ?", @student], :order => "start_time desc") %>
+	<table>
+		<tr><th></th><th>test</th><th>date</th><th>score</th><th>status</th>
+	<% tests.each do |t| %>
+	<p>
+		<tr><td><%= radio_button_tag :id, tag_value = "#{t.id}" %></td><%= "<td>#{t.test_template.description}</td><td>#{t.start_time.strftime('%H:%M %d/%m/%Y')}</td><td>#{(t.score)}%</td><td>#{(t.status)}" %></td></tr>
+	</p>
+	<% end %>
+	</table>
+	<p>
+		<label for="time_limit">Time Limit (minutes):</label>
+		<%= text_field_tag :time_limit, 15, :size => 5 %>
+	</p>
+  <%= submit_tag 'Authorize Re-entry' %>
+<% end %>

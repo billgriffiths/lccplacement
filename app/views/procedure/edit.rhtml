@@ -1,0 +1,9 @@
+<h1>Edit Procedure</h1>
+
+<% form_tag :action => 'update', :id => @procedure do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Save changes' %>
+<% end %>
+<p/>
+<%= link_to 'Show', :action => 'show', :id => @procedure %> |
+<%= link_to 'Back', :action => 'list' %>

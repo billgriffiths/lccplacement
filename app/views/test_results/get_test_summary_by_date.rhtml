@@ -1,0 +1,16 @@
+<h1>Summary by Date: <%=h @dates %></h1>
+Total Number tests <%=h @total_test_results %>
+
+<table>
+  <tr>
+    <th align=left>date</th>
+    <th align=left>number tests</th>
+  </tr>
+  
+<% for test_result in @test_results %>
+	  <tr>
+	    <td><%=h test_result[0] %></td>
+	    <td align=center><%=h test_result[1] %></td>
+	  </tr>
+<% end %>
+</table>

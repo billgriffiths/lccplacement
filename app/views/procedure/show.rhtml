@@ -1,0 +1,22 @@
+<h1>Procedure</h1>
+<% text = @procedure.send("text").split("\n") %>
+<table cellpadding=5>
+  <tr>
+    <td><b><%=h @procedure.send("name") %></b></td>
+  </tr>
+  <tr>
+    <td><%=h @procedure.send("description") %></td>
+  </tr>
+	<% text.each do |p| %>
+	  <tr>
+	    <td><%=h p %></td>
+	  </tr>
+	<% end %>
+</table>
+
+<% user = User.find_by_id(session[:user_id]) %>
+<% if user && user.role == "administrator" %>
+	<p>
+	<%= link_to 'Edit', :action => 'edit', :id => @procedure %>
+	</p>
+<% end %>

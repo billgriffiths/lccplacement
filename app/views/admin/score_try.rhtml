@@ -1,0 +1,63 @@
+<h2>Test Results</h2>
+
+<p>
+<p>
+	<%= Time.now.strftime("%H:%M %m/%d/%Y") -%>
+<table >
+  <tr>
+    <th></th><th align=left>Student Answer</th><th align=left>Key</th><th align=left>Reference</th>
+  </tr>
+<% i = 0 %>  
+<% @test_list.each do |q| %>
+	<% code = q[q.length-1,1] %>
+	<% p = q.chop.chop %>
+	
+	<% if code == "m" %>
+		<% i += 1 %>
+	  <tr>
+	    <td><%= i %>.</td><td><%= @user_answers[i] %></td><td><%= @key[i-1] %></td><td><%= p.split("/")[2].gsub("%20"," ") -%></td>
+	  </tr>
+	<% elsif code == "f" %>
+		<% i += 1 %>
+		<td><%= i -%>.</td><td><%= @user_answers[i] -%></td><td><%= @key[i-1] -%></td><td><%= p.split("?")[1].split("&")[0].split("=")[1].gsub("%20"," ") -%></td>
+	<% end %>
+<% end %>
+</table>
+
+<h3>Score <%= @score -%>%</h3>
+<p>
+	<% i = 0 %>
+	<h3>Missed Questions</h3>
+	<TABLE >
+<% @missed_questions.each do |q| %>
+	<% i += 1 %>
+	<% if (i % 2 == 1) %>
+	<TR>
+	<% end -%>
+	<td valign=top>
+	<% code = q[q.length-1,1] %>
+	<% p = q.chop.chop %>
+	<% parray = p.split("<*>") %>
+	<% if code == "m" %>
+		<% problem_name = p.split("/")[2] -%>
+	<% elsif code == "f" %>
+		<% problem_name = p.split("?")[1].split("&")[0].split("=")[1].gsub("%20"," ") -%>
+	<% end -%>
+	<TABLE >
+		<tr>
+			<td>
+				<h4><%= "#{parray[0]}. Student answer #{parray[1]} Key #{parray[2]} #{problem_name}" -%></h4>
+			</td>
+		</tr>
+		<tr>
+			<TD style="width: 512px; vertical-align: top; text-align: left;" width=512>
+				<IMG align=top src="http://math.lanecc.edu/<%= URI.encode(parray[3]) %>" BORDER=1>
+			</TD>
+		</tr>
+	</table>
+	</td>
+	<% if (i % 2 == 0) %>
+	</TR>
+	<% end -%>
+<% end -%>
+</TABLE>

@@ -1,0 +1,19 @@
+<%= error_messages_for 'test_result' %>
+
+<!--[form:test_result]-->
+<p><label for="test_result_answers">Answers</label><br/>
+<%= text_field 'test_result', 'answers'  %></p>
+
+<p><label for="test_result_test_items">Test items</label><br/>
+<%= text_area 'test_result', 'test_items', :size => "60x15"  %></p>
+
+<p><label for="test_result_score">Score</label><br/>
+<%= text_field 'test_result', 'score'  %></p>
+
+<p><label for="test_result_status">Status</label><br/>
+<%= text_field 'test_result', 'status'  %></p>
+
+<p><label for="test_result_start_time">Start time</label><br/>
+<%= datetime_select 'test_result', 'start_time'  %></p>
+<!--[eoform:test_result]-->
+

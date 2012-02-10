@@ -1,0 +1,48 @@
+<h1>Data Analysis</h1>
+
+<div class="user-form">
+	<%= error_messages_for 'test_template' %>
+	
+	<fieldset>
+		<legend>Choose Test</legend>
+		<% form_tag :action => 'analyze_test' do %>
+		<p>
+			<label for="test">Test:</label>
+			<% tests = TestTemplate.find(:all, :order => "name") %>
+			<%= select_tag :test, options_from_collection_for_select(tests, :id, :display_name, selected_value = nil)%>
+		</p>
+	  	<%= submit_tag 'Analyze Test' %>
+		<% end %>
+	</fieldset>
+</div>
+<p>
+<div class="user-form">
+	<%= error_messages_for 'answer_record' %>
+	
+	<fieldset>
+		<legend>Choose Problem</legend>
+		<% form_tag :action => 'analyze_problem' do %>
+		<p>
+			<label for="problem">Problem:</label>
+			<% problems = AnswerRecord.find(:all, :select => "distinct problem", :order => "problem") %>
+			<%= select_tag :name, options_from_collection_for_select(problems, :problem, :problem, selected_value = nil)%>
+		</p>
+	  	<%= submit_tag 'Analyze Problem' %>
+		<% end %>
+	</fieldset>
+</div>
+<p>
+<div class="user-form">
+	<fieldset>
+		<legend>Choose Recommended Course</legend>
+		<% form_tag :controller => 'test_results', :action => 'get_recommendations_by_date' do %>
+		<p>
+			<label>Math</label>
+			<% course_list =  ["20","22","58","60","65","70","76","95","97","105","111","112","211","213"] %>
+			<% @test_list =  ["A","B","C","D","E1","E2","F","G","H","I"] %>
+			<%= select_tag "Course", options_for_select(course_list)%>
+		</p>
+		<%= submit_tag "Get Score Distributions", :class => "submit" %>
+		<% end %>
+	</fieldset>
+</div>

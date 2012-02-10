@@ -1,0 +1,17 @@
+<h1>Try Test</h1>
+
+<div class="user-form">
+	<%= error_messages_for 'test' %>
+	
+	<fieldset>
+		<legend>Choose test</legend>
+		<% form_tag :action => 'try_test' do %>
+		<p>
+			<label for="test">Test:</label>
+			<% tests = TestTemplate.find(:all, :order => "name") %>
+			<%= select_tag :test, options_from_collection_for_select(tests, :id, :display_name, selected_value = nil)%>
+		</p>
+		<%= submit_tag "Choose Test", :class => "submit" %>
+		<% end %>
+	</fieldset>
+</div>

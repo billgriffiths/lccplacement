@@ -1,0 +1,8 @@
+<h1>Editing test_result</h1>
+
+<% form_tag :action => 'update', :id => @test_result do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Save changes' %>
+<% end %>
+<p/>
+<%= link_to 'Back', :action => 'list' %>

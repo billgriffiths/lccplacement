@@ -1,0 +1,9 @@
+<b>Test:</b> <%=h TestTemplate.find(@cutoff_score.send('test_template_id')).description %>
+<% for column in CutoffScore.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @cutoff_score.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @cutoff_score %> |
+<%= link_to 'Back', :action => 'show_sequence' %>

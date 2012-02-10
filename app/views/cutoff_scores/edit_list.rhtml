@@ -1,0 +1,25 @@
+<h1>Edit cutoff scores</h1>
+
+<table>
+  <tr>
+    <th>Test</th>
+  <% for column in CutoffScore.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for @cutoff_score in @cutoff_scores %>
+  <tr>
+	<% form_tag :action => 'update', :id => @cutoff_score do %>
+	  <%= render :partial => 'edit_record' %>
+	  <%= submit_tag 'Save changes' %>
+	<% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => @cutoff_score %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => @cutoff_score %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => @cutoff_score }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<p/>
+<%= link_to 'New cutoff_score', :action => 'new' %>

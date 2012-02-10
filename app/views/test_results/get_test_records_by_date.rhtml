@@ -1,0 +1,33 @@
+<h1>Test Records by Date: <%=h @dates %></h1>
+
+<table>
+  <tr>
+    <th align=left>status</th>
+    <th align=left>student id</th>
+    <th align=left>test</th>
+    <th align=left>score</th>
+    <th t>%</th>
+    <th >date</th>
+    <th align=left>location</th>
+  </tr>
+  
+<% for test_result in @test_results %>
+	<% test_session=TestSession.find_by_id(test_result.test_session_id)%>
+	<% if not test_session.blank? %>
+		<% if test_session.location == @location or @location == "" %>
+		  <tr>
+			<% student=Student.find_by_id(test_result.student_id)%>
+		    <td><%=h test_result.send("status") %></td>
+		    <td><%=h student.student_number %></td>
+			<td><%=TestTemplate.find(TemplateVersion.find(test_result.template_version_id).test_template_id).name %></td>
+		    <td><%=h test_result.send("raw_score") %></td>
+		    <td><%=h test_result.send("score") %>%</td>
+		    <td><%=h test_result.send("start_time").strftime("%H:%M %m/%d/%Y") %></td>
+		    <td><%=h test_session.location %></td>
+			<td><%=link_to("view test", :controller => 'students', :action => 'show_test', :test_results => test_result.id) %></td>	
+			<td><%=link_to("results", :controller => 'test_results', :action => 'score', :test_results => test_result.id) %></td>
+		  </tr>
+		<% end %>
+	<% end %>
+<% end %>
+</table>

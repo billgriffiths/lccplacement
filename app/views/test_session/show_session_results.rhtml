@@ -1,0 +1,30 @@
+<h3><%=h "#{@student.last_name}, #{@student.first_name}" -%><br/>
+<%=h "#{@student.student_number}" -%></h3>
+<p>
+<h3>Test date: <%=h @test_date.strftime("%m/%d/%Y") -%></h3>
+</p>
+
+<h3>
+Exam Scores:<br/>
+<table>
+	<% last_template_id = -1 %>
+	<% for test_result in @results_list %>
+		<% test_template_id = TemplateVersion.find(test_result.template_version_id).test_template_id %>
+		<% if last_template_id != test_template_id %>
+			<tr><td><%=h TestTemplate.find(test_template_id).display_name-%></td><td>  &nbsp; </td><td align=right><%=h test_result.raw_score -%> correct,&nbsp; </td><td align=right><%=h test_result.score -%>%</td></tr>
+		<% end %>
+		<% last_template_id = test_template_id %>
+	<% end %>
+</table>
+<br/>
+Recommendation:
+<% text = @recommendation.split("\n") %>
+<table>
+	<% text.each do |p| %>
+	  <tr>
+	    <td><%=h p -%></td>
+	  </tr>
+	<% end %>
+</table>
+<p>
+<%= link_to 'Back', :controller => 'Students', :action => 'show_record', :id => @student %>

@@ -1,0 +1,170 @@
+  <script type="text/javascript">
+  function successrate(numstudents,decile,rate) {
+  var upperrange;
+  	if (decile < 90) {
+  	upperrange = decile+9;
+  	} else {
+  	upperrange = 100;
+  	}
+  var decilerange=decile+"-"+upperrange;
+  var msg="The "+numstudents+" students in decile "+decilerange+" answered the questions in this section correctly "+rate+"% of the time.";
+  alert(msg);
+//  return false;
+  }
+  function problemsuccessrate(numstudents,decile,rate) {
+  var upperrange;
+  	if (decile < 90) {
+  	upperrange = decile+9;
+  	} else {
+  	upperrange = 100;
+  	}
+  var decilerange=upperrange+"-"+decile;
+  var msg="The "+numstudents+" students in decile "+decilerange+" answered this question correctly "+rate+"% of the time.";
+  alert(msg);
+//  return false;
+  }
+  </script>
+  <script type="text/javascript">
+    function problemimage(j) {
+      if (Element.empty('problem-image-'+j)) {
+		var theURL = "<%= url_for(:action => 'analyze_problem') %>" + '?name='
+        new Ajax.Updater('problem-image-'+j, theURL, {
+          method:     'get',
+          onFailure:  function() {Element.classNames('problem-image-'+j).add('failure')},
+          onComplete: function() {new Effect.BlindDown('problem-image-'+j, {duration: 0.25})}
+        });
+      } else {
+        new Effect[Element.visible('problem-image-'+j) ? 
+          'BlindUp' : 'BlindDown']('problem-image-'+j, {duration: 0.25});
+      }
+    }
+    
+  </script>
+<SCRIPT TYPE="text/javascript">
+<!--
+var gIndex = 1;
+function popup(mylink, windowname)
+{
+if (! window.focus)return true;
+var href;
+if (typeof(mylink) == 'string')
+   href=mylink;
+else
+   href=mylink.href;
+wName = windowname+gIndex;
+window.open(href, wName, 'width=600,height=480,scrollbars=yes');
+gIndex++;
+return false;
+}
+//-->
+</SCRIPT>  
+<h1>Test Analysis</h1>
+<span class="analysis">
+<h2><%= @test.name %></h2>
+<h2><%= @test.description %></h2>
+
+
+<% s = @test_sections.length %>
+<table cellspacing=5, frame=1>
+	<tr><th colspan = 11>Distribution of Scores</th></tr>
+	<tr><th>% score decile</th>
+		<% 9.times do |i|%>
+			<th><%= i*10 %>-<%= (i+1)*10-1 %></th>
+		<% end %>
+		<th>90-100</th>
+	</tr>
+	<tr><td>frequency</td>
+		<% 10.times do |i|%>
+			<% if @histogram[i*10]["count"] == 0 %>
+				<td></td>
+			<% else %>
+				<td align=center><%= @histogram[i*10]["count"] %></td>
+			<% end %>
+		<% end %>
+	</tr>
+</table>
+<p/>
+<table cellspacing=5, frame=1>
+	<tr><th colspan = 11>Success Rate Distribution by Section and Decile</th></tr>
+	<tr><th class="advice" colspan = 11>Click on a number in the table to show an interpretation</th></tr>
+	<tr><th>% score decile</th>
+		<% 9.times do |i|%>
+			<th><%= i*10 %>-<%= (i+1)*10-1 %></th>
+		<% end %>
+		<th>90-100</th>
+	</tr>
+	<% @test_sections.each do |s| %>
+			<tr><td><%= s %></td>
+				<% 10.times do |i|%>
+					<% if @histogram[i*10][s]["total"] != 0 %>
+						<% rate = (@histogram[i*10][s]["correct"]/0.01/@histogram[i*10][s]["total"]).round %>
+						<td align=center><a onClick=successrate(<%=@histogram[i*10]["count"]%>,<%=i*10%>,<%=rate%>)><%= rate %>%</a></td>
+					<% else %>
+						<td></td>
+					<% end %>
+				<% end %>
+			</tr>
+	<% end %>
+</table>
+<br/>
+<br/>
+<h2>Success Rate Distribution for Each Problem within Each Section</h2>
+<% j=0 %>
+	<% @test_sections.each do |s| %>
+		<% if not @test_section[s].blank? %>
+			<h3>Section: <%= s %></h3>
+			<% @test_section[s].each do |p| %>
+				<% j += 1 %>
+				<% parray = p.split(".") %>
+				<% ext = parray.last %>
+				<% name = p[0,p.length-ext.length-1] %>
+				<% div_name = "problem-image-#{j}" %>	
+				<% nChoices = @nChoices[p] %>	    
+				<h4>Problem: <%= p %> <a onClick="problemimage(<%= j %>); return false"> show/hide problem image</a></h4>
+			    <div id="problem-image-<%= j %>" style="display: none">
+					<% if ext == 'pedr' %>
+						<IMG align=top src="http://math.lanecc.edu/problems/PEmultchoiceimages/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
+					<% elsif ext == '5jpg' %>
+						<IMG align=top src="http://math.lanecc.edu/problems/5multchoiceimages/<%=URI.encode(name)%>/12345" BORDER=1>
+					<% elsif ext == 'pedx' %>
+						<% i = 0 %>
+						<% order = [] %>
+						<% nChoices.times do %>
+							<% i = i+1 %>
+							<% order << i %>
+						<% end %>
+						<% answer_order = order.join(",") %>
+						<IMG align=top src="http://math.lanecc.edu/problems/PEXmultchoiceimages/<%=URI.encode(name)%>/<%="#{answer_order}"%>" BORDER=1>
+					<% else %>
+						<IMG align=top src="http://math.lanecc.edu/problems/MRC/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
+					<% end %>
+			    </div>
+				<table cellspacing=5, frame=1>
+					<tr><th>score decile</th>
+						<% 9.times do |i|%>
+							<th><%= i*10 %>-<%= (i+1)*10-1 %></th>
+						<% end %>
+						<th>90-100</th>
+					</tr>
+					<tr><td>frequency</td>
+						<% 10.times do |i|%>
+							<td align=center><%= @histogram[i*10][s][p]["total"] %></td>
+						<% end %>
+					</tr>
+					<tr><td>% correct</td>
+						<% 10.times do |i|%>
+							<% if @histogram[i*10][s][p]["total"] != 0 %>
+							<% rate = (@histogram[i*10][s][p]["correct"]/0.01/@histogram[i*10][s][p]["total"]).round %>
+							<td align=center><a onClick=problemsuccessrate(<%=@histogram[i*10][s][p]["total"]%>,<%=i*10%>,<%=rate%>)><%= rate %>%</a></td>
+							<% else %>
+								<td></td>
+							<% end %>
+						<% end %>
+					</tr>
+				</table>
+			<% end %>
+		<% end %>
+		<br/>
+		<br/>
+	<% end %>
+	</span>

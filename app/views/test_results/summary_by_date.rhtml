@@ -1,0 +1,20 @@
+<h1>Summary</h1>
+
+<div class="user-form">
+	<%= error_messages_for 'test_results' %>
+	
+	<fieldset>
+		<legend>Enter Dates for Test Results</legend>
+		<% form_tag :action => 'get_test_summary_by_date' do %>
+		<p>
+			<label for="start_date">Starting Date:</label>
+			<%= select_date(Date.today,:prefix => "start_date",:order => [:month, :day, :year]) %>
+		</p>
+		<p>
+			<label for="end_date">Ending Date:</label>
+			<%= select_date(Date.today,:prefix => "end_date",:order => [:month, :day, :year]) %>
+		</p>
+		<%= submit_tag "Get Summary", :class => "submit" %>
+		<% end %>
+	</fieldset>
+</div>

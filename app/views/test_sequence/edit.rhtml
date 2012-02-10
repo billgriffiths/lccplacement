@@ -1,0 +1,10 @@
+<h1>Test Sequence</h1>
+
+<% form_tag :action => 'update', :id => @test_sequence do %>
+<% @test_sequence.list_position = @test_sequence.list_position/10 %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Save changes' %>
+<% end %>
+<p/>
+<%= link_to 'Show', :action => 'show', :id => @test_sequence %> |
+<%= link_to 'Back', :action => 'list' %>

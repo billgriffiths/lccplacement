@@ -1,0 +1,7 @@
+<% if flash[:notice] -%>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end -%>
+
+<%= link_to 'Click here to go to the final results screen.', {:controller => 'test_session', :action => 'session_results', :id => @student, :test => 'A.tedr'}, :method => :post %>
+<br/>
+<%= link_to 'Click here to try another exam.', {:controller => 'test_session', :action => 'student_intro'}, :method => :post %>

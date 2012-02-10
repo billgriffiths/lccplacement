@@ -1,0 +1,27 @@
+<h1>Cutoff Scores</h1>
+<p>For each line in the following table the recommendation for a test applies to test scores which are greater than the score on the previous line and less than or equal to the score on the given line.
+</p>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Test</th>
+    <th>% Score</th>
+    <th>Recommendation</th>
+    <th>Alternate</th>
+  </tr>
+  
+<% for cutoff_score in @cutoff_scores %>
+  <tr>
+  	<td><%=h TestTemplate.find(cutoff_score.send('test_template_id')).description %></td>
+    <td align=right><%=h cutoff_score.send("score") %></td>
+    <td><%=h cutoff_score.send("recommendation") %></td>
+    <td><%=h cutoff_score.send("alternate_recommendation") %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => cutoff_score %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => cutoff_score }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New cutoff score', :action => 'new' %>

@@ -1,0 +1,40 @@
+<h1>Add User</h1>
+
+<div class="user-form">
+	<%= error_messages_for 'user' %>
+	
+	<fieldset>
+		<legend>Enter User Details</legend>
+		<% form_for :user do |form| %>
+		<p>
+			<label for="first_name">First Name:</label>
+			<%= form.text_field :first_name, :size => 40 %>
+		</p>
+		<p>
+			<label for="last_name">Last Name:</label>
+			<%= form.text_field :last_name, :size => 40 %>
+		</p>
+		<p>
+			<label for="user_name">User Name:</label>
+			<%= form.text_field :user_name, :size => 40 %>
+		</p>
+		<p>
+			<label for="user_password">Password:</label>
+			<%= form.password_field :password, :size => 40 %>
+		</p>
+		<p>
+			<label for="user_password_confirmation">Confirm:</label>
+			<%= form.password_field:password_confirmation, :size => 40 %>
+		</p>
+		<p>
+			<label for="location">Location:</label>
+			<%= form.text_field :location, :size => 40 %>
+		</p>
+		<p>
+			<label for="user_role">Role:</label>
+			<%= form.select(:role, User::ROLE_TYPES ) %>
+		</p>
+		<%= submit_tag "Save new user", :class => "submit" %>
+		<% end %>
+	</fieldset>
+</div>

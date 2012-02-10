@@ -1,0 +1,19 @@
+<h1>Authorize Session</h1>
+
+<% for column in Student.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @student.send(column.name) %>
+</p>
+<% end %>
+
+<% form_tag :action => 'authorize_testing_session', :student => @student do %>
+<table>
+	<tr><th>Sequence</th><th>Starting Test</th></tr>
+	<% sequences = TestSequence.find(:all) %>
+	<%= render(:partial => "sequence", :collection => sequences) -%>
+</table>
+	<p><label for="time_limit">Time Limit (minutes):</label>
+		<%= text_field_tag :time_limit, 15, :size => 5 %>
+	</p>
+  <%= submit_tag 'Authorize' %>
+<% end %>

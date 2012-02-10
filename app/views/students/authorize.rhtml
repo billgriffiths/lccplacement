@@ -1,0 +1,20 @@
+<h1>Authorize</h1>
+
+<% for column in Student.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @student.send(column.name) %>
+</p>
+<% end %>
+
+<% form_tag :action => 'authorize_test', :student => @student do %>
+	<p>
+		<label for="test">Test:</label>
+		<% tests = TestTemplate.find(:all) %>
+		<%= select_tag :test, options_from_collection_for_select(tests, :id, :name, selected_value = nil)%>
+	</p>
+	<p>
+		<label for="time_limit">Time Limit (minutes):</label>
+		<%= text_field_tag :time_limit, 15, :size => 5 %>
+	</p>
+  <%= submit_tag 'Authorize' %>
+<% end %>

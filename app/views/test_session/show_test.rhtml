@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>TestController: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'scaffold', 'Test' %>
+  <%= javascript_include_tag :defaults %>
+<SCRIPT LANGUAGE="JavaScript"><!--
+function kH(e) {
+var pK = e ? e.which : window.event.keyCode;
+return (pK != 13)&&(pK != 3);}
+document.onkeypress = kH;
+if (document.layers) document.captureEvents(Event.KEYPRESS);
+ --> </SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+function checkNumeric(objName,questionnum) {
+	// only allow 0-9 and period and minus
+	var checkOK = "-.0123456789";
+	var checkStr = objName;
+	var allValid = true;
+
+	for (i = 0;  i < checkStr.value.length;  i++) {
+		ch = checkStr.value.charAt(i);
+		for (j = 0;  j < checkOK.length;  j++)
+			if (ch == checkOK.charAt(j)) break;
+		if (j == checkOK.length) {
+			allValid = false;
+			break;
+		}
+	}
+	if (! allValid) {
+		thetext = "Only numbers are allowed in the answer to question " + questionnum + ".";
+		thetext = thetext + " No other characters are allowed.";
+		alert(thetext);
+		return (false);
+	} else 	return (true);
+}
+
+var isNS4 = (navigator.appName=="Netscape")?1:0;
+
+function addAnswer(i,theAnswer) {
+	var theURL = "<%= url_for(:controller => 'test_session', :action => 'update_answers') %>" + '?answer='+i+". "+theAnswer
+	new Ajax.Request(theURL, {asynchronous:true, evalScripts:true});
+}
+ --> </script>
+</head>
+<body id="admin">
+  <div id="columns">
+    <div id="side" style="<%="background: #{@test_background_color}"%>">
+		<% test_title = @test_list.shift %>
+		<%= test_title %></br>
+		<div id="answers">
+			<%= render(:partial => "answers", :object => @answers) -%>
+		</div>
+    </div>
+    <div id="main">
+    <% if flash[:notice] -%>
+      <div id="notice"><%= flash[:notice] %></div>
+    <% end -%>
+	<% form_tag :controller => 'test_session', :action => 'score' do %>
+
+	<h1><%= test_title %></h1>
+	<% if not @test_list[0].blank? %>
+		<hr>
+		<h3><%= @test_list[0] %></h3>
+	<% end -%>
+	<% @test_list.shift %>
+	<% n = @test_list.shift.to_i %>
+
+	<% choices = [] %>
+	<% l = "A" %>
+	<% 26.times do %>
+		<% choices << l %>
+		<% l = l.succ %>
+	<% end -%>
+
+	<% i = 0 %>
+	<% @test_list.each do |q| %>
+		<% answer = @answers.items[i] %>
+		<% code = q[q.length-1,1] %>
+		<% p = q.chop.chop %>
+		<% if code == "i" %>
+			<% if not p.blank? %>
+				<hr>
+				<%= p %>
+			<% end %>
+		<% elsif code == "m" %>
+			<hr>
+			<A name="<%= i+1 %>."></A>
+			<TABLE BORDER=0 CELLPADDING=10>
+			<TR>
+				<TD height=50 style="width: 50px; vertical-align: top; text-align: right;">
+					<h3><%= i+=1 -%>.</h3>
+				<p>
+					<TABLE width=50 BORDER=1>
+						<% key = p.split("/") %>
+						<% k = key[key.length-1].gsub(",","").length  # only works for 9 or fewer choices double digits count as two choices.%>
+						<% "A".upto(choices[k-5]) do |x| %>
+							<% if answer.length <= 2 or answer.split(" ")[1] != x %>
+								<%= render(:partial => "choice", :locals => {:i => i, :choice => x}) -%>
+							<% else %>
+								<%= render(:partial => "choice_selected", :locals => {:i => i, :choice => x}) -%>
+							<% end %>
+						<% end %>
+					</TABLE>
+				</TD>
+				<TD style="width: 512px; vertical-align: top; text-align: left;" width=512 rowspan=8>
+					<IMG align=top src="http://math.lanecc.edu/<%= URI.encode(p) %>" BORDER=0>
+				</TD>
+			</TR>
+			</TABLE>
+		<% elsif code == "f" %>
+			<hr>
+			<A name="<%= i+1 %>"></A>
+			<TABLE BORDER=0 CELLPADDING=10>
+				<TR>
+					<TD height=50 style="width: 50px; vertical-align: top; text-align: right;">
+						<h3><%= i+=1 -%>.</h3>
+					</td>
+					<TD style="width: 512px; vertical-align: top; text-align: left;" width=512>
+						<IMG align=top src="http://math.lanecc.edu/<%= URI.encode(p) %>" BORDER=0>
+					</TD>
+				</tr>
+				<tr>
+					<td></td>
+					<% if answer.length <= 2 %>
+						<% entry = "replace this text with your answer (only numbers allowed)" -%>
+					<% else %>
+						<% entry = answer.split(" ") -%>
+						<% entry.delete_at(0).to_s -%>
+					<% end %>
+					<td><input name="<%= i %>" type="text" onKeypress="if(!isNS4){if (event.keyCode > 11 && event.keyCode < 14) event.returnValue = false;}else{if (event.which > 11 && event.which < 14) return false;}" onBlur="checkNumeric(this,<%= i %>)" onChange="addAnswer(<%= i %>,this.value)" value=<%="'#{entry}'"%> size="45">
+					</TD>
+				</TR>
+			</TABLE>
+		<% end %>
+		<p>
+	<% end -%>
+
+	<hr>
+	<input type="submit" value="Submit Test">
+
+	<% end %>
+    </div>
+  </div>
+</body>
+</html>

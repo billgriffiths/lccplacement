@@ -1,0 +1,22 @@
+<h1>Edit test template</h1>
+
+<%= error_messages_for("test_template") %>
+<% form_for(:test_template, :url => {:action => 'update', :id => @test_template}, :builder => ColorPickerFormBuilder) do |f| %>
+	<p><label for="name">Name</label><br/>
+	<%= f.text_field 'name'  %></p>
+
+	<p><label for="description">Description</label><br/>
+	<%= f.text_field 'description'  %></p>
+
+	<p><label for="color">Color</label><br/>
+	<%= f.color_picker :color,  :selected => @test_template.color %></p>
+	<br><br>
+	<p><label for="code">Code</label><br/>
+	<%= f.text_field 'code'  %></p>
+
+	<p>
+	<%= submit_tag 'Save changes' %>
+<% end %>
+<p>
+<%= link_to 'Back', :action => 'list' %>
+</p>

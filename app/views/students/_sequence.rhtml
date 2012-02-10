@@ -1,0 +1,28 @@
+<tr>
+<td>
+<input name="test_sequence_id" type=radio value="<%= sequence.id %>"><%= "#{sequence.name}" %>
+</td>
+<% cutoff_scores = CutoffScore.find(:all, :conditions => ["test_sequence_id = ?",sequence.id] ) %>
+
+<% tests = [] %>
+<% cutoff_scores.each do |c| %>
+	<% cutoff_test = CutoffTest.new %>
+	<% cutoff_test.id = c.id %>
+	<% cutoff_test.seq_position = c.seq_position %>
+	<% if !c.test_template_id.blank? %>
+		<% test = TestTemplate.find(c.test_template_id) %>
+		<% cutoff_test.name = test.name %>
+		<% cutoff_test.description = test.name.chomp(".tedr")+"-"+test.description %>
+	<% else %>
+		<% test = TestSequence.find(c.subsequence_id) %>
+		<% cutoff_test.name = test.name %>
+		<% cutoff_test.description = test.name + "-" + test.description %>
+	<% end %>
+	<% tests << cutoff_test %>
+	<% tests.sort! {|a,b| a.seq_position <=> b.seq_position } %>
+<% end %>
+<td>
+	
+<%= collection_select("test_session", "start_test_id #{sequence.id}" , tests, "id", "description") %>
+</td>
+</tr>

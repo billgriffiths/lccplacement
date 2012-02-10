@@ -1,0 +1,19 @@
+<h1>Resume Test</h1>
+
+<% for column in Student.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @student.send(column.name) %>
+</p>
+<% end %>
+
+<% form_tag :action => 'authorize_resume_test' do %>
+	<table>
+		<tr><th>test</th><th>date</th><th>score</th><th>status</th>
+		<tr><%= "<td>#{TestTemplate.find(TemplateVersion.find(@test_result.template_vesion_id).test_template_id).description}</td><td>#{@test_result.start_time.strftime('%H:%M %d/%m/%Y')}</td><td>#{(@test_result.score)}%</td><td>#{(@test_result.status)}" %></td></tr>
+	<% end %>
+	</table>
+	<p>
+		<label for="time_limit">Time Limit (minutes):</label>
+		<%= text_field_tag :time_limit, 15, :size => 5 %>
+	</p>
+<%= submit_tag 'Authorize' %>

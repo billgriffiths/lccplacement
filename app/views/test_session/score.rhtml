@@ -1,0 +1,13 @@
+<%= error_messages_for :answer_record %>
+
+<h2><%= "#{@student.last_name}, #{@student.first_name}" -%></h2>
+
+<p>
+<h3>Score <%= @score -%>%</h3>
+<h3><%= TestTemplate.find(@test_template_id).description -%> completed.</h3>
+<h3>Recommendation: <%=h @recommendation -%></h3>
+</p>
+
+<%= link_to 'Click here to go to the final results screen.', {:controller => 'test_session', :action => 'session_results', :id => @student, :test => @test_results.template_version_id}, :method => :post %>
+<br/>
+<%= link_to 'Click here to try another exam.', {:controller => 'test_session', :action => 'student_intro'}, :method => :post %>

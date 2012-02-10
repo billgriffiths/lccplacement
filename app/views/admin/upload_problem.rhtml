@@ -1,0 +1,11 @@
+<h1>Upload Problem</h1>
+
+<%= error_messages_for("test_template") %>
+
+<h2>Use FireFox to do this upload</h2>
+<% form_for(:test_template, :url => {:action => 'save'},
+					:html => {:multipart => true}) do |form| %>
+	Problem: <%= form.file_field("uploaded_test", :size => 40) %><p>
+	
+	<%= submit_tag("upload problem") %>
+<% end %>

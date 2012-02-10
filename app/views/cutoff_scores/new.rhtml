@@ -1,0 +1,9 @@
+<h1>New Test, Cutoff-Score Record</h1>
+<h2><%=h @sequence.name %></h2>
+<h2><%=h @sequence.description %></h2>
+<% form_tag :action => 'create', :test_sequence_id => @sequence.id do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Save new sequence record" %>
+<% end %>
+<p/>
+<%= link_to 'Back', :action => 'show_sequence', :id => @sequence %>

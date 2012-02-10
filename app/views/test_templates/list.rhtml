@@ -1,0 +1,23 @@
+<h1>Tests</h1>
+
+<%= error_messages_for("test_template") %>
+<table>
+  <tr>
+    <th align=left>Name</th>
+    <th align=left>Description</th>
+    <th align=left>Sidebar</th>
+    <th align=left>Code</th>
+  </tr>
+  
+<% for test_template in @test_templates %>
+  <tr>
+    <td width=50><%=h test_template.send("name") %></td>
+    <td><%=h test_template.send("description") %></td>
+    <td><div coloritem class="coloritem"><a style="<%="background: #{test_template.color}"%>"></a></div></td>
+    <td><%=h test_template.send("code") %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => test_template %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => test_template }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+

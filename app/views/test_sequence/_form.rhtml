@@ -1,0 +1,43 @@
+<%= error_messages_for 'test_sequence' %>
+
+<!--[form:test_sequence]-->
+<p><label for="test_sequence_name">Name</label><br/>
+<%= text_field 'test_sequence', 'name'  %></p>
+
+<p><label for="test_sequence_list_position">Position</label><br/>
+<%= text_field 'test_sequence', 'list_position'  %></p>
+
+<p><label for="test_sequence_description">Description</label><br/>
+<%= text_area 'test_sequence', 'description', :size => "60x2"  %></p>
+
+<p><label for="test_sequence">Starting Test:</label><br/>
+	<% cutoff_scores = CutoffScore.find(:all, :conditions => ["test_sequence_id = ?",@test_sequence] ) %>
+	<% if @test_sequence.start_test_id.blank? %>
+		<label class="advice" >No default starting test currently selected in this sequence.</label><br>
+	<% end %>
+
+	<% tests = [] %>
+	<% cutoff_scores.each do |c| %>
+		<% cutoff_test = CutoffTest.new %>
+		<% cutoff_test.seq_position = c.seq_position %>
+		<% if not c.test_template_id.blank? %>
+			<% test = TestTemplate.find(c.test_template_id) %>
+			<% cutoff_test.name = test.name %>
+			<% cutoff_test.description = test.name.chomp(".tedr")+"-"+test.description %>
+			<% cutoff_test.id = c.id %>
+		<% else %>
+			<% test = TestSequence.find(c.subsequence_id) %>
+			<% cutoff_test.name = test.name %>
+			<% cutoff_test.description = test.name + "-" + test.description %>
+			<% cutoff_test.id = c.subsequence_id %>
+		<% end %>
+		<% tests << cutoff_test %>
+		<% tests.sort! {|a,b| a.seq_position <=> b.seq_position } %>
+	<% end %>
+	<% if not tests.blank? %>
+		<%= collection_select("test_sequence", "start_test_id" , tests, "id", "description")  %>
+	<% else %>
+		<label class="advice" >No tests currently in this sequence.</label>
+	<% end %></p>
+<!--[eoform:test_sequence]-->
+

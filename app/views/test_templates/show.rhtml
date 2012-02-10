@@ -1,0 +1,11 @@
+<table cellpadding=5>
+  <tr>
+    <td><b><%=h @test_template.send("name") %></b></td>
+  </tr>
+  <tr>
+    <td><%=h @test_template.send("description") %></td>
+  </tr>
+</table>
+
+<%= link_to 'Edit', :action => 'edit', :id => @test_template %> |
+<%= link_to 'List', :action => 'list' %>

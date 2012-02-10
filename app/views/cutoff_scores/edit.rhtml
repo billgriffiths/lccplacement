@@ -1,0 +1,10 @@
+<h1>Edit cutoff score</h1>
+
+<% form_tag :action => 'update', :id => @cutoff_score do %>
+<% @cutoff_score.seq_position = @cutoff_score.display_seq_position %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Save changes' %>
+<% end %>
+<p/>
+
+<%= link_to 'Back', :action => 'show_sequence', :id => @cutoff_score.test_sequence_id %>

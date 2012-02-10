@@ -1,0 +1,13 @@
+<%= error_messages_for 'procedure' %>
+
+<!--[form:procedure]-->
+<p><label for="procedure_name">Name</label><br/>
+<%= text_field 'procedure', 'name'  %></p>
+
+<p><label for="procedure_description">Description</label><br/>
+<%= text_field 'procedure', 'description'  %></p>
+
+<p><label for="procedure_text">Text</label><br/>
+<%= text_area 'procedure', 'text', :size => "60x15"  %></p>
+<!--[eoform:procedure]-->
+

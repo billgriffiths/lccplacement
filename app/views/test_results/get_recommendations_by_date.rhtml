@@ -1,0 +1,61 @@
+<% if @tests.blank? %>
+
+<%= link_to 'Back', :controller => 'answer', :action => 'analyze_answers' %>
+
+<% else %>
+<h1>Recommendation Test Analysis</h1>
+
+<% @test_list =  ["A","B","C","D","E1","E2","F","G","H","I"] %>
+<h3>Math <%=@course%> Recommendation Test Score Distributions </h3>
+<% for t in @tests.reverse %>
+	<% show = false %>
+	<% for i in 0..@l[t] %>
+		<% if @h[t][i] > 0 %>
+			<% show = true %>
+		<% end %>
+	<% end %>
+	<% if show %>
+<h3>Test <%= t %> </h3>
+<table border=1 cellpadding=4>
+		<tr><td>Score</td>
+		<% for i in 0..@l[t] %>
+		<td align=center><%= i %></td>
+		<% end %>
+		</tr>
+		<tr><td>Frequency</td>
+		<% for i in 0..@l[t] %>
+			<% if @h[t][i] > 0 %>
+				<td><%= @h[t][i] %></td>
+			<% else %>
+				<td></td>
+			<% end %>
+		<% end %>
+		</tr>
+</table>
+	<% end %>
+<% end %>
+
+<h3>Test Sequence Score Distribution</h3>
+<pre>
+<table>
+	<tr>
+		<% for t in @test_list.reverse %>
+			<td align=center><%= t %></td>
+		<% end %>
+		<td>frequency</td>
+		<td>recommendation</td>
+	</tr>
+<% for r in @recommendations %>
+	<% if r.tally > 0 %>
+	<tr>
+		<% for i in [0,2,4,6,8,10,12,14,16,18] %>
+			<td><%= r.key_vector.slice(i..i+1) %></td>
+		<% end %>
+		<td align=center><%= r.tally %></td>
+		<td><%= r.rec %></td>
+	</tr>
+	<% end %>
+<% end %>
+</table>
+</pre>
+<% end %>

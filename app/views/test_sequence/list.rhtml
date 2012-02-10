@@ -1,0 +1,32 @@
+<h1>Test Sequences</h1>
+
+<% user = User.find_by_id(session[:user_id]) %>
+
+<table>
+  <tr>
+    <th align=left >Position</th>
+    <th align=left >Name</th>
+    <th align=left >Description</th>
+  </tr>
+  
+<% i = 0 %>
+<% for test_sequence in @test_sequences %>
+	<% i += 1 %>
+	<% test_sequence.list_position = i*10 %>
+	<% test_sequence.save %>
+  <tr>
+    <td valign=top><%=h i %></td>
+    <td width=120 valign=top><%=h test_sequence.send("name") %></td>
+    <td valign=top><%=h test_sequence.send("description") %></td>
+    <td valign=top><%= link_to 'Show', :action => 'show', :id => test_sequence %></td>
+    <% if user && user.role == "administrator" %>
+	    <td valign=top><%= link_to 'Edit', :action => 'edit', :id => test_sequence %></td>
+	    <td valign=top><%= link_to 'Destroy', { :action => 'destroy', :id => test_sequence }, :confirm => 'Are you sure?', :method => :post %></td>
+	<% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New test sequence', :action => 'new' %>

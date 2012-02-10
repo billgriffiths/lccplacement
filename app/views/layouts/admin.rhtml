@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>AdminController: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'scaffold', 'Placement', 'colorPicker' %>
+  <%= javascript_include_tag :defaults %>
+</head>
+<body id="admin">
+	<% user = User.find_by_id(session[:user_id]) %>
+  <div id="banner">
+	<div id="title">
+    <%= @page_title || "Mathematics Placement Exams" %>
+	</div>
+  </div>
+  <div id="logo">
+    <%= image_tag("in-logo.gif", :width => 162) %>
+  </div>
+  <div id="columns">
+    <div id="side">
+		<p>
+			<legend>Testing</legend>
+		</p>
+	<ul>
+        <li><%= link_to "Student Records",   :controller => 'admin', :action => 'get_student_record' %>
+        </li>
+        <li><%= link_to "Recent Tests",   :controller => 'test_results', :action => 'list' %>
+        </li>
+        <li><%= link_to "Procedures",   :controller => 'procedure', :action => 'list' %>
+        </li>
+		<p>
+			<legend>Reports</legend>
+		</p>
+		<ul>
+		    <li><%= link_to "Summary by Date",   :controller => 'test_results', :action => 'summary_by_date' %>
+		    </li>
+		    <li><%= link_to "Scores by Date",   :controller => 'test_results', :action => 'scores_by_date' %>
+		    </li>
+		    <li><%= link_to "Daily Results",   :controller => 'test_results', :action => 'daily_results' %>
+		    </li>
+		    <li><%= link_to "Data Analysis",   :controller => 'answer', :action => 'analyze_answers' %>
+		    </li>
+		</ul>
+	    <% if user && user.role == "administrator" %>
+			<p>
+				<legend>Administration</legend>
+			</p>
+	        <li><%= link_to "Users", :controller => 'admin', :action => 'list_users' %>
+	        </li>
+	        <li><%= link_to "Test Sequences",   :controller => 'test_sequence', :action => 'list' %>
+	        </li>
+	        <li><%= link_to "Tests",   :controller => 'test_templates', :action => 'list' %>
+	        </li>
+	        <li><%= link_to "Try Test",   :controller => 'admin', :action => 'try_test' %>
+	        </li>
+	        <li><%= link_to "Student Login",   :controller => 'test_session', :action => 'student_login2' %>
+	        </li>
+		    <li><%= link_to "Upload Test",   :controller => 'test_templates', :action => 'upload' %>
+	        </li>
+		<% end %>
+		<p>
+			<legend>Logout</legend>
+		</p>
+	    <li><%= link_to "Logout",     :controller => 'admin', :action => 'logout' %>
+        </li>
+		</ul>
+    </div>
+    <div id="main">
+    <% if flash[:notice] -%>
+      <div id="notice"><%= flash[:notice] %></div>
+    <% end -%>
+      <%= yield :layout %>
+    </div>
+  </div>
+</body>
+</html>

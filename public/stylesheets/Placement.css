@@ -1,0 +1,311 @@
+/* Global styles */
+
+/* START:notice */
+#notice {
+  border: 2px solid red;
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color: #f0f0f0;
+  font: bold small sans-serif;
+}
+/* END:notice */
+
+/* Styles for main page */
+
+a:hover   {
+	background-color:#ffffdd;
+	color: #67a;
+	text-decoration: none;
+	font:  sans-serif;
+	font-size: small;
+	cursor:pointer;
+}
+
+a {
+
+	color: white;
+	text-decoration: none;
+	background: #89c;
+	padding: 0 0.2em;
+}
+
+#banner {
+	position:fixed;
+	margin-left: 0em;
+	width:100%;
+	height:50px;
+	top:0;
+	left:0em;
+	background: #256;
+	padding-top: 20px;
+	padding-bottom: 2px;
+	padding-left: 0em;
+	border-bottom: 4px solid red;
+	font: small-caps 30px/30px "Times New Roman", serif;
+	color: white;
+	text-align: center;
+}
+
+#logo {
+  position:fixed;
+  top:0em;
+  left:0em;
+}
+
+#title {
+	position:fixed;
+	margin-left: 8em;
+	font: small-caps 30px/30px "Times New Roman", serif;
+	color: white;
+	text-align: center;
+	top:0;
+	left:0em;
+	padding-top: 20px;
+}
+
+#columns {
+  background: white;
+}
+
+#main {
+  margin-top: 6em;
+  margin-left: 12em;
+  padding-top: 4ex;
+  padding-left: 2em;
+  padding-bottom: 1em;
+  background: white;
+}
+
+#side {
+	top:5.8em;
+	font:  sans-serif;
+	font-size: small;
+	color: #ffffdd;
+	float: left;
+	padding-top: 0.5em;
+	padding-left: 0.5em;
+	padding-bottom: 2em;
+	width: 12em;
+	background: #467;
+	left: 0em;
+	position: fixed;
+	overflow:auto;
+	border-top: 6px solid #337;
+	border-bottom: 10px solid #337;
+	border-right: 1px solid #67a;
+}
+
+#side ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	width: 150px;
+	}
+	
+#side ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: block;
+	width: 150px;
+	}
+
+#side ol li a:hover {
+	color: red;
+	background-color:black;
+	display: block;
+	}
+
+#side ul a {
+	color: white;
+	text-decoration: none;
+	display: block;
+	background: #67a;
+	padding: 0 0.5em;
+	margin: 0 0em 1px 0.5em;
+}
+
+#side ol li {
+	left: 1em;
+	}
+
+#side li ol {
+	position: fixed;
+	left: 149px;
+	top: 0;
+	display: block;
+	}
+			
+#side a {
+  	color: Lightcyan;
+  	font-size: small;
+	text-decoration: none;
+}
+
+#side a:hover {
+	background-color:#ffffdd;
+	color: #337;
+	text-decoration: none;
+	font:  sans-serif;
+	font-size: small;
+}
+
+h1 {
+  font:  150% sans-serif;
+  color: #559;
+  border-bottom: 2px dotted #77d;
+}
+
+h2 {
+  font-size: 14px;
+  font-family: sans-serif;
+  color: limegreen;
+  text-decoration: none;
+}
+
+
+/* Styles for order form */
+
+.user-form fieldset {
+  background: #ffffdd;
+}
+
+.user-form legend {
+	color: white;
+	background: #67a;
+	font:  sans-serif;
+	font-size: small;
+	padding: 0.2em 1em;
+}
+
+.user-form label {
+  width: 10em;
+  float: left;
+  text-align: right;
+  margin-right: 0.5em;
+  display: block;
+}
+
+.user-form .submit {
+  margin-left: 10.5em;
+}
+
+/* The error box */
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 100%;
+  list-style: square;
+}
+
+.advice {
+	font-family:"Times New Roman";
+  	text-align: center;
+  	font-style: italic;
+  	font-size: 100%;
+  	color: red;
+}
+
+.advice h3 {
+	font-family:"Times New Roman";
+  	font-size: 100%;
+  	font-style: italic;
+	font-weight:bold;
+  	color: red;
+}
+
+.analysis table {
+  	background-color: #eee;
+}
+
+.analysis a {
+	color: white;
+	text-decoration: none;
+	background: #89c;
+	padding: 0 0.2em;
+}
+
+.analysis a:hover   {
+	background-color:#ffffdd;
+	color: #67a;
+	text-decoration: none;
+	font:  sans-serif;
+	font-size: small;
+}
+
+.analysis h1 {
+  font:  150% sans-serif;
+  font-weight: normal;
+  color: black;
+  border-bottom: none;
+}
+
+.analysis h2 {
+  font:  130% sans-serif;
+  font-weight: normal;
+  color: black;
+}
+
+.analysis h3 {
+  font-size: 120%;
+  font-weight: normal;
+  font-family: sans-serif;
+  color: black;
+  text-decoration: none;
+  border-bottom: 2px solid gray;
+}
+
+.analysis h4 {
+  font-size: 100%;
+  font-weight: normal;
+  font-family: sans-serif;
+  color: black;
+  text-decoration: none;
+}
+
+.problemtitle a {
+	text-decoration: underline;
+	color: purple;
+	background-color:white;
+	padding: 0 0;
+}
+
+.problemtitle a:hover   {
+	background-color:white;
+	color: red;
+	text-decoration: none;
+	font: 100% sans-serif;
+}
+
+
+

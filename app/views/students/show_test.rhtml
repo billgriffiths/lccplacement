@@ -1,0 +1,79 @@
+
+<h1><%= @test_list.shift %></h1>
+<% if not @test_list[0].blank? %>
+	<hr>
+	<h3><%= @test_list[0] %></h3>
+<% end -%>
+<% @test_list.shift %>
+<% n = @test_list.shift.to_i %>
+
+<% choices = [] %>
+<% l = "A" %>
+<% 26.times do %>
+	<% choices << l %>
+	<% l = l.succ %>
+<% end -%>
+
+<% i = 0 %>
+<% @test_list.each do |q| %>
+	<% answer = @answers.items[i] %>
+	<% code = q[q.length-1,1] %>
+	<% p = q.chop.chop %>
+	<% if code == "i" %>
+		<% if not p.blank? %>
+			<hr>
+			<%= p %>
+		<% end %>
+	<% elsif code == "m" %>
+		<hr>
+		<TABLE BORDER=0 CELLPADDING=10>
+		<TR>
+			<TD height=50 style="width: 50px; vertical-align: top; text-align: right;">
+				<h3><%= i+=1 -%>.</h3>
+			<p>
+				<TABLE width=50 BORDER=1>
+					<% key = p.split("/") %>
+					<% k = key[key.length-1].gsub(",","").length  # only works for 9 or fewer choices double digits count as two choices.%>
+					<% "A".upto(choices[k-5]) do |x| %>
+						<% if answer.length <= 2 or answer.split(" ")[1] != x %>
+							<%= render(:partial => "choice", :locals => {:i => i, :choice => x}) -%>
+						<% else %>
+							<%= render(:partial => "choice_selected", :locals => {:i => i, :choice => x}) -%>
+						<% end %>
+					<% end %>
+				</TABLE>
+			</TD>
+			<TD style="width: 512px; vertical-align: top; text-align: left;" width=512 rowspan=8>
+				<IMG align=top src="http://math.lanecc.edu/<%= URI.encode(p) %>" BORDER=0>
+			</TD>
+		</TR>
+		</TABLE>
+	<% elsif code == "f" %>
+		<hr>
+		<A name="<%= i+1 %>"></A>
+		<TABLE BORDER=0 CELLPADDING=10>
+			<TR>
+				<TD height=50 style="width: 50px; vertical-align: top; text-align: right;">
+					<h3><%= i+=1 -%>.</h3>
+				</td>
+				<TD style="width: 512px; vertical-align: top; text-align: left;" width=512>
+					<IMG align=top src="http://math.lanecc.edu/<%= URI.encode(p) %>" BORDER=0>
+				</TD>
+			</tr>
+			<tr>
+				<td></td>
+				<% if answer.length <= 2 %>
+					<% entry = "replace this text with your answer (only numbers allowed)" -%>
+				<% else %>
+					<% entry = answer.split(" ") -%>
+					<% entry.delete_at(0).to_s -%>
+				<% end %>
+				<td><input name="<%= i %>" type="text" onKeypress="if(!isNS4){if (event.keyCode > 11 && event.keyCode < 14) event.returnValue = false;}else{if (event.which > 11 && event.which < 14) return false;}" onBlur="checkNumeric(this,<%= i %>)" onChange="addAnswer(<%= i %>,this.value)" value=<%="'#{entry}'"%> size="45">
+				</TD>
+			</TR>
+		</TABLE>
+	<% end %>
+	<p>
+<% end -%>
+
+<hr>

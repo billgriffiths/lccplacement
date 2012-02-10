@@ -1,0 +1,17 @@
+<%= error_messages_for 'student' %>
+
+<!--[form:student]-->
+<p><label for="student_student_number">Student number</label><br/>
+<%= text_field 'student', 'student_number'  %></p>
+
+<p><label for="student_first_name">First name</label><br/>
+<%= text_field 'student', 'first_name'  %></p>
+
+<p><label for="student_last_name">Last name</label><br/>
+<%= text_field 'student', 'last_name'  %></p>
+
+<p><label for="student_birth_date">Birth date</label><br/>
+<%= date_select('student', "birth_date", :start_year => Date.today.year-80, :end_year => Date.today.year-10, :options => {}, :order => [:month, :day, :year], :include_blank => true) %></p>
+
+<!--[eoform:student]-->
+

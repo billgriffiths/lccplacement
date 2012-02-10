@@ -1,0 +1,273 @@
+/* Global styles */
+
+/* START:notice */
+#notice {
+  border: 2px solid red;
+  padding: 1em;
+  margin-bottom: 2em;
+  background-color: #f0f0f0;
+  font: bold small sans-serif;
+}
+/* END:notice */
+
+/* Styles for admin/list */
+
+#product-list .list-title {
+	color:        #244;
+	font-weight:  bold;
+	font-size:    larger;
+}
+
+#product-list .list-image {
+  width:        60px;
+  height:       70px;
+}
+
+
+#product-list .list-actions {
+  font-size:    x-small;
+  text-align:   right;
+  padding-left: 1em;
+}
+
+#product-list .list-line-even {
+  background:   #e0f8f8;
+}
+
+#product-list .list-line-odd {
+  background:   #f8b0f8;
+}
+
+
+/* Styles for main page */
+
+#columns {
+  background: #666666;
+}
+
+#main {
+  margin-top: 5em;
+  margin-left: 10em;
+  padding-top: 1em;
+  padding-left: 2em;
+  padding-right: 10em;
+  padding-bottom: 5em;
+  background: white;
+}
+
+#banner {
+	position:fixed;
+	margin-left: 0em;
+	width:100%;
+	height:50px;
+	top:0;
+	left:0em;
+	background: #256;
+	padding-top: 20px;
+	padding-bottom: 2px;
+	padding-left: 0em;
+	border-bottom: 4px solid red;
+  	font-family: times, sans-serif;
+	font: 30px/30px "Times New Roman", serif;
+	color: white;
+	text-align: center;
+}
+
+#logo {
+  position:fixed;
+  top:0em;
+  left:0em;
+}
+
+#title {
+	position:fixed;
+	margin-left: 8em;
+	font: small-caps 30px/30px "Times New Roman", serif;
+	color: white;
+	text-align: center;
+	top:0;
+	left:0em;
+	padding-top: 20px;
+}
+
+#side {
+  top:0;
+  font:  sans-serif;
+  font-size: small;
+  color: #236;
+  float: left;
+  padding-top: 1ex;
+  padding-left: 1em;
+  padding-bottom: 100em;
+  width: 10em;
+  background: #666666;
+  left: 0;
+  position: fixed;
+  overflow:auto;
+}
+
+
+#side a   {
+	color: #236;
+	text-decoration: none;
+	font: sans-serif;
+ 	font-size: small;
+}
+
+#side a:hover   {
+	color: white;
+  	background: #236;
+	text-decoration: none;
+	font: sans-serif;
+ 	font-size: small;
+}
+
+h1 {
+  font:  150% sans-serif;
+  color: #337;
+}
+
+/* An entry in the store catalog */
+
+#store  .entry {
+  border-bottom: 1px dotted #77d;
+}
+
+#store  .title {
+  font-size: 120%;
+  font-family: sans-serif;
+}
+
+#store .entry img {
+  width: 75px;
+  float: left;
+}
+
+
+#store .entry h3 {
+ margin-bottom: 2px;
+ color: #227;
+}
+
+#store .entry p {
+ margin-top: 0px; 
+ margin-bottom: 0.8em; 
+}
+
+#store .entry .price-line {
+}
+
+#store .entry .add-to-cart {
+  position: relative;
+}
+
+#store .entry  .price {
+  color: #44a;
+  font-weight: bold;
+  margin-right: 2em;
+}
+
+/* START:inline */
+#store .entry form, #store .entry form div {
+  display: inline;
+}
+/* END:inline */
+
+/* START:cart */
+/* Styles for the cart in the main page and the sidebar */
+
+.cart-title {
+  font: 120% bold; 
+}
+
+.item-price, .total-line {
+  text-align: right;	
+}
+
+.total-line .total-cell {
+  font-weight: bold;
+  border-top: 1px solid #595;
+}
+
+
+/* Styles for the cart in the sidebar */
+
+#cart, #cart table {
+  font-size: smaller;	
+  color:     white;
+}
+
+#cart table {
+  border-top:    1px dotted #595;
+  border-bottom: 1px dotted #595;
+  margin-bottom: 10px;
+}
+/* END:cart */
+
+/* Styles for order form */
+
+.user-form fieldset {
+  background: cornsilk;
+}
+
+.user-form legend {
+	color: bisque;
+	background: #467;
+	font:  sans-serif;
+	font-size: small;
+	padding: 0.2em 1em;
+}
+
+.user-form label {
+  width: 10em;
+  float: left;
+  text-align: right;
+  margin-right: 1em;
+  display: block;
+}
+
+.user-form .submit {
+  margin-left: 10.5em;
+}
+
+.user-form .submit {
+  margin-left: 10.5em;
+}
+
+/* The error box */
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#errorExplanation {
+  width: 400px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}

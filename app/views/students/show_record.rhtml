@@ -1,0 +1,60 @@
+<h1>Student Record</h1>
+
+<table>
+  <tr>
+    <th>Student number</th>
+    <th>First name</th>
+    <th>Last name</th>
+    <th>Birth date</th>
+  </tr>
+  
+  <tr>
+  <td><%=h @student.student_number %></td>
+  <td><%=h @student.first_name %></td>
+  <td><%=h @student.last_name %></td>
+  <td><%=h @student.birth_date.strftime("%m/%d/%Y") %></td>
+  <td><%= link_to 'Edit', :action => 'edit', :id => @student %></td>
+</tr>
+</table>
+
+<h3>Tests</h3>
+
+<table>
+  <tr>
+    <th>Status</th>
+    <th>Test</th>
+    <th>% Score</th>
+    <th>Start Time</th>
+  </tr>
+	<% for result in @test_results %>
+		 <tr>
+		   <td><%=result.status %></td>
+		   <td align=center><%=TestTemplate.find(TemplateVersion.find(result.template_version_id).test_template_id).name %></td>
+		   <td align=center><%=result.score %></td>
+		   <td><%=result.start_time.strftime("%H:%M %m/%d/%Y") %></td>
+		   <td><%=link_to("view test", :controller => 'students', :action => 'show_test', :test_results => result.id) %></td>
+		   <td><%=link_to("results", :controller => 'test_results', :action => 'score', :test_results => result.id) %></td>
+		   <td><%=link_to("resume", {:action => 'authorize_resume_test', :id => result.id, :time_limit => 15}, :method => :post) %></td>
+		</tr>
+	<% end %>
+</table>
+
+<h3>Completed Test Sessions</h3>
+
+<table>
+  <tr>
+    <th>Start Time</th>
+    <th>Final Test</th>
+    <th>Score</th>
+  </tr>
+	<% for session in @test_sessions %>
+		<% if not session.final_test.blank? and not session.final_score.blank? %>
+		 <tr>
+		   <td><%=session.start_time.strftime("%H:%M %m/%d/%Y")%></td>
+		   <td align=center><%=TestTemplate.find(session.final_test).name %></td>
+		   <td><%=session.final_score %></td>
+		   <td><%=link_to("show recommendation", :controller => 'test_session', :action => 'show_recommendation', :test_session_id => session.id) %></td>
+		</tr>
+		<% end %>
+	<% end %>
+</table>

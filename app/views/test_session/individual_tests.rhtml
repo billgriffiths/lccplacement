@@ -1,0 +1,66 @@
+<a name=t"top">Lane Community College     
+Mathematics Department</a>
+<P>
+         Form 890/796
+<P>
+<B>MATHEMATICS PLACEMENT
+TESTS
+</B>
+
+<U><B><a name="Instructions"><h2>Instructions</h2></a>
+</B></U>
+<P>
+1. Use the scratch paper
+to work out each problem.
+<P>
+2.For some tests you may use a calculator and for some tests you may NOT.<br>
+The instructions at the beginning of each test will tell you whether or not
+a calculator is allowed.<br>
+You may borrow a calculator from the Testing Office if you need one.
+
+<P>
+3. If you do not know an answer
+to a question, please <U>do not guess</U>!  That is because this
+test is a placement test, and you are trying to find your true
+level of performance in order to choose the best class.  If you
+reach problems that are too difficult, you may stop.
+<p>
+
+You are allowed ONE retest on each part, and then must wait three months for an additional attempt.<br>
+Clicking on a link below, will count as an attempt, even if you don't answer any of the questions.<p>
+<hr>
+<% if flash[:notice] -%>
+  <div id="notice"><%= flash[:notice] %></div>
+<% end -%>
+<% @sequence = TestSequence.find(:first,:conditions => ["name = 'Individual Tests'"]) %>
+<% cutoff_scores = CutoffScore.find(:all, :conditions => ["test_sequence_id = ?",@sequence.id] ) %>
+
+<% tests = [] %>
+<% cutoff_scores.each do |c| %>
+	<% cutoff_test = CutoffTest.new %>
+	<% cutoff_test.id = c.id %>
+	<% cutoff_test.seq_position = c.seq_position %>
+	<% if not c.test_template_id.blank? %>
+		<% test = TestTemplate.find(c.test_template_id) %>
+		<% cutoff_test.name = test.name %>
+		<% cutoff_test.description = test.name.chomp(".tedr")+"-"+test.description %>
+	<% else %>
+		<% test = TestSequence.find(c.subsequence_id) %>
+		<% cutoff_test.name = test.name %>
+		<% cutoff_test.description = test.name + "-" + test.description %>
+	<% end %>
+	<% tests << cutoff_test %>
+	<% tests.sort! {|a,b| a.seq_position <=> b.seq_position } %>
+<% end %>
+	<table>
+		<tr><th>Individual Test</th></tr>
+		<%= render(:partial => "test", :collection => tests) -%>
+	</table>
+	<hr>
+MAKE SURE YOU CLICK ON THE "SUBMIT" BUTTON AT THE BOTTOM OF EACH PART WHEN YOU ARE FINISHED WITH THAT SECTION.<p>
+<hr>
+<b>When you are finished with the exams you want
+to take please click 
+<%= link_to 'here', {:controller => 'test_session', :action => 'session_results', :id => @student, :test => 'A.tedr'}, :method => :post %> to go to the final results screen.
+<br>
+Please click on the print button and print only ONE copy.

@@ -1,0 +1,60 @@
+<%= error_messages_for 'cutoff_score' %>
+
+<!--[form:cutoff_score]-->
+<span class="advice">
+	Choose either Test or Subsequece
+</span>
+<table>
+<tr>
+	<td>
+		<label for="cutoff_score_test_template_id">Test</label><br/>
+		<%= collection_select('cutoff_score', 'test_template_id', TestTemplate.find(:all), 'id', 'description', {:include_blank => true}) %>
+	</td>
+	<td width = 100 align=center>OR</td>
+	<td>
+		<label for="cutoff_score_subsequence_id">Subsequence</label><br/>
+		<%= collection_select('cutoff_score', 'subsequence_id', TestSequence.find(:all), 'id', 'name', {:include_blank => true}) %>
+	</td>
+</tr>
+</table>
+
+<p><label for="cutoff_score_seq_position">Sequence Position for this cutoff score</label><br/>
+<%= text_field 'cutoff_score', 'seq_position', :size => 5  %></p>
+
+<label for="cutoff_score_score"> % score</label><br/>
+<span class="advice">
+	Score only applies to Test. Leave blank for Subsequence.<br/>
+</span>
+<%= text_field 'cutoff_score', 'score', :size => "5" %>
+<table>
+<tr>
+	<td>
+<p><label for="cutoff_score_test_template_id">Failing score branches to:</label><br/>
+<span class="advice">
+	Leave blank if no more tests are to be taken.<br/>
+</span>
+<%= collection_select('cutoff_score', 'fail_cutoff_score', CutoffScore.find(:all,:conditions => ["test_sequence_id = ?",@cutoff_score.test_sequence_id], :order => 'seq_position'), 'id', 'position_description', {:include_blank => true}) %></p>
+</td>
+<td width = 100 align=center></td>
+<td>
+<p><label for="cutoff_score_test_template_id">Passing score branches to:</label><br/>
+<span class="advice">
+	Leave blank if no more tests are to be taken.<br/>
+</span>
+<%= collection_select('cutoff_score', 'pass_cutoff_score', CutoffScore.find(:all,:conditions => ["test_sequence_id = ?",@cutoff_score.test_sequence_id], :order => 'seq_position'), 'id', 'position_description', {:include_blank => true}) %></p>
+	</td>
+</tr>
+</table>
+
+<label for="cutoff_score_alternate_recommendation">Recommendation if fail</label><br/>
+<span class="advice">
+	Leave blank if there are more tests to be taken.<br/>
+</span>
+<%= text_area 'cutoff_score', 'alternate_recommendation', :size => "60x3"  %>
+<!--[eoform:cutoff_score]-->
+
+<p><label for="cutoff_score_recommendation">Recommendation if pass:</label><br/>
+<span class="advice">
+	Leave blank if there are more tests to be taken.<br/>
+</span>
+<%= text_area 'cutoff_score', 'recommendation', :size => "60x3"  %></p>

@@ -1,0 +1,27 @@
+<h1>Listing recommendations</h1>
+<pre>
+<table>
+  <tr>
+  <% for column in Recommendation.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for recommendation in @recommendations %>
+  <tr>
+  <% for column in Recommendation.content_columns %>
+    <td><%=h recommendation.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => recommendation %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => recommendation %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => recommendation }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+</pre>
+<%= link_to 'Previous page', { :page => @recommendation_pages.current.previous } if @recommendation_pages.current.previous %>
+<%= link_to 'Next page', { :page => @recommendation_pages.current.next } if @recommendation_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New recommendation', :action => 'new' %>

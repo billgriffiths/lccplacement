@@ -1,0 +1,19 @@
+<h1>Test Sequences</h1>
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+  
+<% sequences = CutoffScore.find(:all, :test_sequence_id => "distinct name", :order => "name") %>
+<% for cutoff_score in sequences %>
+  <tr>
+    <td><%=h cutoff_score.send("name") %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => cutoff_score %></td>
+    <td><%= link_to 'Show', :action => 'show_sequence', :id => cutoff_score.send("test_sequence_id") %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => cutoff_score }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+<p>
+<%= link_to 'New sequence', :controller => 'test_sequence', :action => 'new' %>
+</p>

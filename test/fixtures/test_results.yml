@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  answers: MyString
+  test_items: MyText
+  score: 1.5
+  status: MyString
+  start_time: 2007-11-05 00:10:40
+  student_id: 1
+  test_template_id: 1
+two:
+  id: 2
+  answers: MyString
+  test_items: MyText
+  score: 1.5
+  status: MyString
+  start_time: 2007-11-05 00:10:40
+  student_id: 1
+  test_template_id: 1
