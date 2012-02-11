@@ -31,7 +31,7 @@ test:
 
 production:
   adapter: mysql
-  database: lccplacement
+  database: lccplacement_production
   username: lccplacement
   password: lccplacementpass
   socket: /private/var/mysql/mysql.sock
