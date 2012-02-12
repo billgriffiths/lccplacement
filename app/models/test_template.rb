@@ -9,6 +9,7 @@ class TestTemplate < ActiveRecord::Base
   validates_uniqueness_of :name
   
   def uploaded_test=(test_field)
+    require "rexml/document"
     template = test_field.read
     doc = REXML::Document.new(template)
     testsection = doc.root.elements["dict"]

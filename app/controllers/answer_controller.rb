@@ -154,6 +154,7 @@ class AnswerController < ApplicationController
   end
 
   def generate_test_section_list(test_template)
+    require "rexml/document"
     @section_names = []
     @section = ""
     @test_section = {}

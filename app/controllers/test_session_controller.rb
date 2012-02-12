@@ -90,6 +90,7 @@ class TestSessionController < ApplicationController
   end
 
   def TestSessionController.generate_test_form(test_template)
+    require "rexml/document"
     srand Time.now.to_i
     problem_list = []
     doc = REXML::Document.new(test_template)
