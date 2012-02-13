@@ -322,7 +322,7 @@ class TestSessionController < ApplicationController
   def TestSessionController.decrement_histogram(test_template_id,test_results_id,score)
     require 'YAML'
     test_version = TemplateVersion.find(test_template_id) # most recent version
-    answer_records = AnswerRecord.find_all("test_result_id = #{test_results_id}")
+    answer_records = AnswerRecord.find(:all, :conditions => ["test_result_id = ?","test_results_id"])
     histogram = YAML.load(test_version.histogram)
     nScores = test_version.number_scores
     if not score.blank?
@@ -844,8 +844,8 @@ class TestSessionController < ApplicationController
     @student = Student.new(params[:student])
     if request.post?
       flash[:notice] = nil
-      if not (params['student']['birth_date(1i)'].blank? || params['student']['birth_date(2i)'].blank? || params['student']['birth_date(3i)'].blank?)
-        birth_date = Date.new(params['student']['birth_date(1i)'].to_i,params['student']['birth_date(2i)'].to_i,params['student']['birth_date(3i)'].to_i)
+      if not (params['birth_date']['birth_date(1i)'].blank? || params['birth_date']['birth_date(2i)'].blank? || params['birth_date']['birth_date(3i)'].blank?)
+        birth_date = Date.new(params['birth_date']['birth_date(1i)'].to_i,params['birth_date']['birth_date(2i)'].to_i,params['birth_date']['birth_date(3i)'].to_i)
       end
       @student.birth_date = birth_date
       current_time = Time.now.strftime("%Y-%m-%d %H:%M:%S")
