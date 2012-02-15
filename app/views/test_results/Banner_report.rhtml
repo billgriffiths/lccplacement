@@ -5,7 +5,7 @@
 	
 	<fieldset>
 		<legend>Enter the Date for Banner Report</legend>
-		<% form_tag :action => 'get_Banner_results_by_date' do %>
+		<% form_tag :action => 'get_session_results_by_date' do %>
 		<p>
 			<label for="the_date">Date:</label>
 			<%= select_date(Date.today,:prefix => "the_date",:order => [:month, :day, :year]) %>

@@ -279,6 +279,7 @@ class TestResultsController < ApplicationController
     if request.post?
       the_date = Time.local(params["the_date"]["year"],params["the_date"]["month"],params["the_date"]["day"])
       next_day = the_date.tomorrow
+      @dates = "#{the_date.strftime('%m/%d/%Y')} to #{next_day.strftime('%m/%d/%Y')}."
       @test_sessions = TestSession.find(:all, :conditions => ["status = 'finished' and final_test is not null and start_time >= ? and start_time < ?",the_date,next_day])
       if @test_sessions.length == 0
         flash[:notice] = "No sessions for #{the_date.strftime('%m/%d/%Y')}."

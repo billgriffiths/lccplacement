@@ -320,7 +320,7 @@ class TestSessionController < ApplicationController
   end
   
   def TestSessionController.decrement_histogram(test_template_id,test_results_id,score)
-    require 'YAML'
+    require 'yaml'
     test_version = TemplateVersion.find(test_template_id) # most recent version
     answer_records = AnswerRecord.find(:all, :conditions => ["test_result_id = ?","test_results_id"])
     histogram = YAML.load(test_version.histogram)
@@ -347,7 +347,7 @@ class TestSessionController < ApplicationController
   end
 
   def TestSessionController.increment_histogram(test_template_id,score,answer_records)
-    require 'YAML'
+    require 'yaml'
     test_version = TemplateVersion.find(test_template_id) # most recent version
     histogram = YAML.load(test_version.histogram)
     nScores = test_version.number_scores

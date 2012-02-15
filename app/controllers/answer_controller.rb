@@ -50,7 +50,7 @@ class AnswerController < ApplicationController
   
   def analyze_test
 #    require 'set'
-    require 'YAML'
+    require 'yaml'
     @test = TestTemplate.find(params[:test])
     if @test.blank?
       flash[:notice] = "No test chosen."
