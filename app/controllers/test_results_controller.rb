@@ -261,13 +261,14 @@ class TestResultsController < ApplicationController
       @Banner_sessions = params[:Banner_sessions].split('/')
       current_time = Time.now
       destination_file = "UO."+current_time.strftime("%Y%m%d.%H%M%S")
-      file_name = "/Library/WebServer/aux_files/"+destination_file
+#      file_name = "/Library/WebServer/aux_files/"+destination_file
+      file_name = "/Users/bill/"+destination_file
       #write file, set processed field of these sessions and offer to send them to Banner
       File.open(file_name, 'w') {|f| f.write(@student_records) }
 #      Kernel.system("scp",file_name,"mathplac@daedalus.cocc.edu:"+destination_file)
       for session_id in @Banner_sessions
         s = TestSession.find_by_id(session_id)
-        s.update_attribute(:processed,current_time)
+#        s.update_attribute(:processed,current_time)
       end
       flash[:notice] = 'Session records sent to Banner.'
     end
