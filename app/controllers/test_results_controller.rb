@@ -262,7 +262,7 @@ class TestResultsController < ApplicationController
       current_time = Time.now
       destination_file = "UO."+current_time.strftime("%Y%m%d.%H%M%S")
 #      file_name = "/Library/WebServer/aux_files/"+destination_file
-      file_name = "/home/"+destination_file
+      file_name = "/home/deploy/"+destination_file
       #write file, set processed field of these sessions and offer to send them to Banner
       File.open(file_name, 'w') {|f| f.write(@student_records) }
 #      Kernel.system("scp",file_name,"mathplac@daedalus.cocc.edu:"+destination_file)
