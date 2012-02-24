@@ -1,10 +1,9 @@
 <h1>Banner Report</h1>
-Completed student session records formatted for Banner not yet sent to Banner
+Completed student session records formatted for Banner
 
 <pre>
 <%=h @student_records %>
 </pre>
 
 
-<%= link_to 'Send to Banner', {:action => 'send_to_Banner', :Banner_records => @student_records, :Banner_sessions => @Banner_sessions}, :method => :post %>
 

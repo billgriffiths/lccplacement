@@ -260,9 +260,11 @@ class TestResultsController < ApplicationController
     if not params[:Banner_sessions].blank?
       @Banner_sessions = params[:Banner_sessions].split('/')
       current_time = Time.now
-      destination_file = "UO."+current_time.strftime("%Y%m%d.%H%M%S")
+      destination_file = "placementscores.csv"
+#      destination_file = "placementscores.csv"+current_time.strftime("%Y%m%d.%H%M%S")
 #      file_name = "/Library/WebServer/aux_files/"+destination_file
       file_name = "/home/deploy/"+destination_file
+#      file_name = "/users/bill/"+destination_file
       #write file, set processed field of these sessions and offer to send them to Banner
       File.open(file_name, 'w') {|f| f.write(@student_records) }
 #      Kernel.system("scp",file_name,"mathplac@daedalus.cocc.edu:"+destination_file)
@@ -310,6 +312,42 @@ class TestResultsController < ApplicationController
     	end
       render :action => 'get_Banner_results_by_date'
     end
+  end
+
+  def get_current_results
+    the_date = Date.today
+    @test_sessions = TestSession.find(:all, :conditions => ["status = 'finished' and final_test is not null and start_time >= ?",the_date])
+    if @test_sessions.length > 0
+      @student_records = ""
+		  for test_session in @test_sessions
+  			test_record = ""
+  			student=Student.find_by_id(test_session.student_id)
+    		if not test_session.final_test.blank?
+    			test = TestTemplate.find(test_session.final_test)
+    			test_record << student.last_name+","
+    			test_record << student.first_name+","
+    	#        test_record.gsub!(/'/,"\\\\'")
+    			test_record << student.birth_date.strftime("%m%d%y")+","
+    			test_record << student.student_number+","
+    			test_record << test.code+","+test_session.final_score.to_i.to_s+","
+    			test_record << test_session.start_time.strftime("%Y%m%d")+","
+    			test_record << student.student_number
+    			@student_records << test_record+"\n"
+  			end
+			end
+      destination_file = "placementscores.csv"
+#      destination_file = "placementscores.csv"+current_time.strftime("%Y%m%d.%H%M%S")
+#      file_name = "/Library/WebServer/aux_files/"+destination_file
+#      file_name = "/home/deploy/"+destination_file
+      file_name = "/users/bill/"+destination_file
+      #write file, set processed field of these sessions and offer to send them to Banner
+      File.open(file_name, 'w') {|f| f.write(@student_records) }
+#      Kernel.system("scp",file_name,"mathplac@daedalus.cocc.edu:"+destination_file)
+#      for session_id in @Banner_sessions
+#        s = TestSession.find_by_id(session_id)
+#        s.update_attribute(:processed,current_time)
+#      end
+ 	  end
   end
 
   def get_test
