@@ -12,5 +12,5 @@ class TestResult < ActiveRecord::Base
     test_sequence_id = TestSession.find(test_session_id).test_sequence_id
     cutoff_score = CutoffScore.find(:first, :conditions => ["test_sequence_id = ? and test_template_id = ?",test_sequence_id,test_template_id])
   end
-
+  
 end

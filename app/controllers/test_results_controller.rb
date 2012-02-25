@@ -314,10 +314,10 @@ class TestResultsController < ApplicationController
     end
   end
 
-  def get_current_results
+  def TestResultsController.get_current_results
     the_date = Date.today
     @test_sessions = TestSession.find(:all, :conditions => ["status = 'finished' and final_test is not null and start_time >= ?",the_date])
-    if @test_sessions.length > 0
+#    if @test_sessions.length > 0
       @student_records = ""
 		  for test_session in @test_sessions
   			test_record = ""
@@ -347,7 +347,7 @@ class TestResultsController < ApplicationController
 #        s = TestSession.find_by_id(session_id)
 #        s.update_attribute(:processed,current_time)
 #      end
- 	  end
+# 	  end
   end
 
   def get_test
