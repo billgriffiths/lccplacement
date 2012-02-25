@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_filter :authorize_access, :except => [:get_test, :get_next_test, :find_next_test_in_sequence, :show_test, 
     :score, :student_login2, :student_intro, :student_logout, :staff_login, :create_session, 
     :authorize_testing_session, :get_subsession_results, :resume, :student_resume_test, :authorize_resume_test, 
-    :session_results, :get_sequence, :update_answers, :individual_tests, :get_start_test, :get_individual_test]
+    :session_results, :get_sequence, :update_answers, :individual_tests, :get_start_test, :get_individual_test, :index]
   
 #  layout proc{ |c| c.request.xhr? ? false : "application" }
 
