@@ -9,10 +9,16 @@ class ApplicationController < ActionController::Base
     :score, :student_login2, :student_intro, :student_logout, :staff_login, :create_session, 
     :authorize_testing_session, :get_subsession_results, :resume, :student_resume_test, :authorize_resume_test, 
     :session_results, :get_sequence, :update_answers, :individual_tests, :get_start_test, :get_individual_test, :index]
+    
+  before_filter :redirect_to_https
   
 #  layout proc{ |c| c.request.xhr? ? false : "application" }
 
   private
+  
+  def redirect_to_https 
+    redirect_to :protocol => "https://" unless (request.ssl? || local_request?) 
+  end
 
   def authorize_access
     return if self.controller_name == 'test_session'
