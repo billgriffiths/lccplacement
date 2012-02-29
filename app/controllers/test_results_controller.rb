@@ -197,31 +197,30 @@ class TestResultsController < ApplicationController
 
   def get_Banner_results_by_date #doesn't apply to LCC, uses COCC system
     if request.post?
-      the_date = Time.local(params["the_date"]["year"],params["the_date"]["month"],params["the_date"]["day"])
-      next_day = the_date.tomorrow
-      @test_sessions = TestSession.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",the_date,next_day])
+      start_time = Time.local(params["start_date"]["year"],params["start_date"]["month"],params["start_date"]["day"])
+      end_time = Time.local(params["end_date"]["year"],params["end_date"]["month"],params["end_date"]["day"])
+      next_day = end_time.tomorrow
+      @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",start_time,next_day])
       @student_records = ""
-      if @test_sessions.empty?
-        flash[:notice] = "No sessions for #{the_date.strftime('%m/%d/%Y')}."
+      if @test_results.empty?
+        flash[:notice] = "No test results for #{the_date.strftime('%m/%d/%Y')}."
       else
         flash[:notice] = nil
-        @Banner_sessions = []
-        for test_session in @test_sessions
-          if test_session.parent_session.blank? and test_session.processed.blank?
-            test_record = ""
-            student=Student.find_by_id(test_session.student_id)
-            test = TestTemplate.find(test_session.final_test)
-            test_record << student.last_name+","
-            test_record << student.first_name+","
-    #        test_record.gsub!(/'/,"\\\\'")
-            test_record << student.birth_date.strftime("%m%d%y")+","
-            test_record << student.student_number+","
-            test_record << test.code+","+test_session.final_score.to_i.to_s+","
-            test_record << test_session.start_time.strftime("%Y%m%d")+","
-            test_record << student.student_number
-            @student_records << test_record+"\n"
-            @Banner_sessions << test_session.id
-          end
+#        @Banner_sessions = []
+        for test_result in @test_results
+          test_record = ""
+          student=Student.find_by_id(test_result.student_id)
+          test = TestTemplate.find(test_result.template_version_id)
+          test_record << student.last_name+","
+          test_record << student.first_name+","
+  #        test_record.gsub!(/'/,"\\\\'")
+          test_record << student.birth_date.strftime("%m%d%y")+","
+          test_record << student.student_number+","
+          test_record << test.code+","+test_result.raw_score.to_i.to_s+","
+          test_record << test_result.start_time.strftime("%Y%m%d")+","
+          test_record << student.student_number
+          @student_records << test_record+"\n"
+#          @Banner_sessions << test_session.id
         end
       end
    end
@@ -230,7 +229,6 @@ class TestResultsController < ApplicationController
   def get_outstanding_records
       @test_sessions = TestSession.find(:all, :conditions => ["status = 'finished' and final_test is NOT NULL and processed = '1000-01-01 00:00:00'"])
       @student_records = ""
-      @Banner_sessions = []
       if @test_sessions.empty?
         flash[:notice] = "No outstanding sessions found."
       else
@@ -249,7 +247,6 @@ class TestResultsController < ApplicationController
             test_record << test_session.start_time.strftime("%Y%m%d")+","
             test_record << student.student_number
             @student_records << test_record+"\n"
-            @Banner_sessions << test_session.id
           end
         end
       end
@@ -257,8 +254,8 @@ class TestResultsController < ApplicationController
 
   def send_to_Banner
     @student_records = params[:Banner_records]
-    if not params[:Banner_sessions].blank?
-      @Banner_sessions = params[:Banner_sessions].split('/')
+#    if not params[:Banner_sessions].blank?
+#      @Banner_sessions = params[:Banner_sessions].split('/')
       current_time = Time.now
       destination_file = "placementscores.csv"
 #      destination_file = "placementscores.csv"+current_time.strftime("%Y%m%d.%H%M%S")
@@ -268,12 +265,12 @@ class TestResultsController < ApplicationController
       #write file, set processed field of these sessions and offer to send them to Banner
       File.open(file_name, 'w') {|f| f.write(@student_records) }
 #      Kernel.system("scp",file_name,"mathplac@daedalus.cocc.edu:"+destination_file)
-      for session_id in @Banner_sessions
-        s = TestSession.find_by_id(session_id)
+#      for session_id in @Banner_sessions
+#        s = TestSession.find_by_id(session_id)
 #        s.update_attribute(:processed,current_time)
-      end
+#      end
       flash[:notice] = 'Session records sent to Banner.'
-    end
+#    end
     render :action => 'get_outstanding_records'
   end
 

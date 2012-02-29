@@ -22,4 +22,5 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect '/lccplacement/:controller/:action/:id'
   map.connect '/lccplacement/', :controller => 'home', :action => 'index'
+  map.connect '', :controller => 'home', :action => 'index'
 end
