@@ -315,7 +315,6 @@ class TestResultsController < ApplicationController
 
   def TestResultsController.get_current_results
     the_date = Date.today
-    the_date = "2011-03-01"
     @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ?",the_date], :order => 'student_id')
     @student_records = ""
     for test_result in @test_results
