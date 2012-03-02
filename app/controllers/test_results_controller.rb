@@ -205,7 +205,7 @@ class TestResultsController < ApplicationController
       @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",start_time,next_day], :order => 'student_id')
       @student_records = ""
       if @test_results.empty?
-        flash[:notice] = "No test results for #{the_date.strftime('%m/%d/%Y')}."
+        flash[:notice] = "No test results for #{start_time.strftime('%m/%d/%Y')}."
       else
         flash[:notice] = nil
 #        @Banner_sessions = []
