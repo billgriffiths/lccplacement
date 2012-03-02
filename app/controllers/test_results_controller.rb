@@ -18,6 +18,8 @@ class TestResultsController < ApplicationController
     @dates = "#{yesterday.strftime('%m/%d/%Y')} to #{the_date.strftime('%m/%d/%Y')}."
     if @test_results.length == 0
       flash[:notice] = "No recent tests."
+    else
+      flash[:notice] = nil
     end
   end
 
@@ -200,7 +202,7 @@ class TestResultsController < ApplicationController
       start_time = Time.local(params["start_date"]["year"],params["start_date"]["month"],params["start_date"]["day"])
       end_time = Time.local(params["end_date"]["year"],params["end_date"]["month"],params["end_date"]["day"])
       next_day = end_time.tomorrow
-      @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",start_time,next_day])
+      @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",start_time,next_day], :order => 'student_id')
       @student_records = ""
       if @test_results.empty?
         flash[:notice] = "No test results for #{the_date.strftime('%m/%d/%Y')}."
@@ -269,7 +271,7 @@ class TestResultsController < ApplicationController
 #        s = TestSession.find_by_id(session_id)
 #        s.update_attribute(:processed,current_time)
 #      end
-      flash[:notice] = 'Session records sent to Banner.'
+      flash[:notice] = 'Test results sent to Banner.'
 #    end
     render :action => 'get_outstanding_records'
   end
@@ -313,7 +315,8 @@ class TestResultsController < ApplicationController
 
   def TestResultsController.get_current_results
     the_date = Date.today
-    @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ?",the_date])
+    the_date = "2011-03-01"
+    @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ?",the_date], :order => 'student_id')
     @student_records = ""
     for test_result in @test_results
       test_record = ""
