@@ -257,6 +257,15 @@ class TestResultsController < ApplicationController
         end
       end
    end
+   
+   #      Kernel.system("scp",file_name,"mathplac@daedalus.cocc.edu:"+destination_file)
+   #      for session_id in @Banner_sessions
+   #        s = TestSession.find_by_id(session_id)
+   #        s.update_attribute(:processed,current_time)
+   #      end
+   #     flash[:notice] = 'Test results sent to Banner.'
+   #    end
+   
 
   def send_to_Banner
     @start_time = params["start_time"]
@@ -282,8 +291,8 @@ class TestResultsController < ApplicationController
     destination_file = "placementscores.csv"
 #      destination_file = "placementscores.csv"+current_time.strftime("%Y%m%d.%H%M%S")
 #      file_name = "/Library/WebServer/aux_files/"+destination_file
-#    file_name = "/home/deploy/"+destination_file
-      file_name = "/users/bill/"+destination_file
+    file_name = "/home/deploy/"+destination_file
+#      file_name = "/users/bill/"+destination_file
     #write file, set processed field of these sessions and offer to send them to Banner
     File.open(file_name, 'w') {|f| f.write(@student_records) }
   end
@@ -346,8 +355,8 @@ class TestResultsController < ApplicationController
     destination_file = "placementscores.csv"
 #      destination_file = "placementscores.csv"+current_time.strftime("%Y%m%d.%H%M%S")
 #      file_name = "/Library/WebServer/aux_files/"+destination_file
-#    file_name = "/home/deploy/"+destination_file
-      file_name = "/users/bill/"+destination_file
+    file_name = "/home/deploy/"+destination_file
+#      file_name = "/users/bill/"+destination_file
     #write file, set processed field of these sessions and offer to send them to Banner
     File.open(file_name, 'w') {|f| f.write(@student_records) }
   end
