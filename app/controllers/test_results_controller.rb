@@ -146,7 +146,7 @@ class TestResultsController < ApplicationController
       start_time = Time.local(params["start_date"]["year"],params["start_date"]["month"],params["start_date"]["day"])
       end_time = Time.local(params["end_date"]["year"],params["end_date"]["month"],params["end_date"]["day"])
       next_day = end_time.tomorrow
-      @test_results = TestResult.find(:all, :conditions => ["start_time >= ? and start_time < ?",start_time,next_day], :order => 'start_time desc,student_id')
+      @test_results = TestResult.find(:all, :conditions => ["start_time >= ? and start_time < ?",start_time,next_day], :order => 'student_id,start_time desc')
       @dates = "#{start_time.strftime('%m/%d/%Y')} to #{end_time.strftime('%m/%d/%Y')}."
       if @test_results.empty?
         flash[:notice] = "No tests between the dates #{start_time.strftime('%m/%d/%Y')} and #{end_time.strftime('%m/%d/%Y')}."
@@ -206,7 +206,7 @@ class TestResultsController < ApplicationController
       @end_time = end_time.strftime('%Y/%m/%d')
       @next_day = end_time.tomorrow.strftime('%Y/%m/%d')
       @dates = "#{start_time.strftime('%m/%d/%Y')} to #{end_time.strftime('%m/%d/%Y')}."
-      @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",start_time,next_day], :order => 'start_time desc,student_id')
+      @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",start_time,next_day], :order => 'student_id,start_time desc')
       @student_records = ""
       if @test_results.empty?
         flash[:notice] = "No test results."
@@ -272,7 +272,7 @@ class TestResultsController < ApplicationController
     @end_time = params["end_time"]
     @next_day = params["next_day"]
     @dates = params["dates"]
-    @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",@start_time,@next_day], :order => 'start_time desc,student_id')
+    @test_results = TestResult.find(:all, :conditions => ["status = 'finished' and start_time >= ? and start_time < ?",@start_time,@next_day], :order => 'student_id,start_time desc')
     @student_records = ""
     for test_result in @test_results
       test_record = ""
