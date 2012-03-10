@@ -123,9 +123,9 @@ return false;
 				<h4>Problem: <%= p %> <a onClick="problemimage(<%= j %>); return false"> show/hide problem image</a></h4>
 			    <div id="problem-image-<%= j %>" style="display: none">
 					<% if ext == 'pedr' %>
-						<IMG align=top src="http://s3.amazonaws.com/LCCMath/problems/PEmultchoiceimages/<%=URI.encode(name)%>/1,2,3,4.jpg" BORDER=1>
+						<IMG align=top src="http://s3.amazonaws.com/LaneCCMath/problems/PEmultchoiceimages/<%=URI.encode(name)%>/1,2,3,4.jpg" BORDER=1>
 					<% elsif ext == '5jpg' %>
-						<IMG align=top src="http://s3.amazonaws.com/LCCMath/problems/5multchoiceimages/<%=URI.encode(name)%>/12345.jpg" BORDER=1>
+						<IMG align=top src="http://s3.amazonaws.com/LaneCCMath/problems/5multchoiceimages/<%=URI.encode(name)%>/12345.jpg" BORDER=1>
 					<% elsif ext == 'pedx' %>
 						<% i = 0 %>
 						<% order = [] %>
@@ -134,9 +134,9 @@ return false;
 							<% order << i %>
 						<% end %>
 						<% answer_order = order.join(",") %>
-						<IMG align=top src="http://s3.amazonaws.com/LCCMath/problems/PEXmultchoiceimages/<%=URI.encode(name)%>/<%="#{answer_order}.jpg"%>" BORDER=1>
+						<IMG align=top src="http://s3.amazonaws.com/LaneCCMath/problems/PEXmultchoiceimages/<%=URI.encode(name)%>/<%="#{answer_order}.jpg"%>" BORDER=1>
 					<% else %>
-						<IMG align=top src="http://s3.amazonaws.com/LCCMath/problems/MRC/<%=URI.encode(name)%>/1,2,3,4.jpg" BORDER=1>
+						<IMG align=top src="http://s3.amazonaws.com/LaneCCMath/problems/MRC/<%=URI.encode(name)%>/1,2,3,4.jpg" BORDER=1>
 					<% end %>
 			    </div>
 				<table cellspacing=5, frame=1>

@@ -18,11 +18,11 @@
 		<TD style="width: 512px; vertical-align: top; text-align: left;" width=512>
 			<% name = @problem_name[0,@problem_name.length-1-@ext.length]%>
 			<% if @ext == 'pedr' %>
-			<IMG align=top src="http://s3.amazonaws.com/LCCMath/problems/PEmultchoiceimages/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
+			<IMG align=top src="http://s3.amazonaws.com/LaneCCMath/problems/PEmultchoiceimages/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
 			<% elsif @ext == '5jpg' %>
-			<IMG align=top src="http://s3.amazonaws.com/LCCMath/problems/5multchoiceimages/<%=URI.encode(name)%>/12345" BORDER=1>
+			<IMG align=top src="http://s3.amazonaws.com/LaneCCMath/problems/5multchoiceimages/<%=URI.encode(name)%>/12345" BORDER=1>
 			<% else %>
-			<IMG align=top src="http://s3.amazonaws.com/LCCMath/problems/MRC/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
+			<IMG align=top src="http://s3.amazonaws.com/LaneCCMath/problems/MRC/<%=URI.encode(name)%>/1,2,3,4" BORDER=1>
 			<% end %>
 		</TD>
 	</tr>
