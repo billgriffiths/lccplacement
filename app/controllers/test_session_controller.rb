@@ -382,7 +382,7 @@ class TestSessionController < ApplicationController
     if @test_results.status == 'finished'
       flash[:notice] = "This test has already been scored."
       already_scored = true
-#      would like to short circuit as follows except view results option uses this code to gnerate the item results
+#      would like to short circuit as follows except view results option uses this code to generate the item results
 #      @score = @test_results.score
 #      find_next_test_in_sequence # since we aren't going to show the results to the student can branch directly to next test
     else
@@ -691,7 +691,8 @@ class TestSessionController < ApplicationController
     answerarray = answer.split(" ")
     i = answerarray[0].to_i
     @current_answer = answer
-    @test_results = session[:test_results]
+    @test_results = TestResult.find(session[:test_results])
+#    @test_results = session[:test_results]
     @answers.items = @test_results.answers.split("<*>")
     if @test_results.status == 'finished'
       @current_answer = @answers.items[i-1]
@@ -713,26 +714,26 @@ class TestSessionController < ApplicationController
     end
   end
 
-  def student_resume_test
-    session[:user_id] = nil
-    @student = Student.find(session[:student_id])
-    if @student
-      if session[:test_session_id].blank?
-        redirect_to(:action => "create_session")
-      else
-        @test_results = TestResult.find(:all, :conditions => ["test_session_id = ?",session[:test_session_id]])
-        get_subsession_results(session[:test_session_id])
-        test_session = TestSession.find(session[:test_session_id])
-        if test_session.parent_session != 0
-          TestSessionController.get_test_results(test_session.parent_session,@test_results)
-        end
-        @test_results.sort! {|x,y| x.start_time <=> y.start_time}
-      end
-    else
-      redirect_to( :action => "student_login2" )
-    end
-  end
-
+  def student_resume_test # doesn't require staff authorization
+     session[:user_id] = nil
+     @student = Student.find(session[:student_id])
+     if @student
+       if session[:test_session_id].blank?
+         redirect_to(:action => "create_session")
+       else
+         @test_results = TestResult.find(:all, :conditions => ["test_session_id = ?",session[:test_session_id]])
+         get_subsession_results(session[:test_session_id])
+         test_session = TestSession.find(session[:test_session_id])
+         if test_session.parent_session != 0
+           TestSessionController.get_test_results(test_session.parent_session,@test_results)
+         end
+         @test_results.sort! {|x,y| x.start_time <=> y.start_time}
+       end
+     else
+       redirect_to( :action => "student_login2" )
+     end
+   end
+ 
   def resume
     redirect_to(:action => "staff_login")
   end

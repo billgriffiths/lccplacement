@@ -7,15 +7,22 @@ class ApplicationController < ActionController::Base
   
   before_filter :authorize_access, :except => [:get_test, :get_next_test, :find_next_test_in_sequence, :show_test, 
     :score, :student_login2, :student_intro, :student_logout, :staff_login, :create_session, 
-    :authorize_testing_session, :get_subsession_results, :resume, :student_resume_test, :authorize_resume_test, 
+    :authorize_testing_session, :get_subsession_results, :resume, :authorize_resume_test, 
     :session_results, :get_sequence, :update_answers, :individual_tests, :get_start_test, :get_individual_test, :index]
     
   before_filter :redirect_to_https
   
+  before_filter :log_session_id
+
 #  layout proc{ |c| c.request.xhr? ? false : "application" }
 
   private
   
+  def log_session_id
+    session[:session_id]
+    logger.info "Session ID: " + request.session_options[:id]
+  end
+
   def redirect_to_https 
     redirect_to :protocol => "https://" unless (request.ssl? || local_request?) 
   end
