@@ -1015,7 +1015,7 @@ class TestSessionController < ApplicationController
     h = Hash.new("empty")
     for t in @results_list
       test_id = TemplateVersion.find(t.template_version_id)
-      h[TestTemplate.find(test_id).name] = t.raw_score.to_s
+      h[TestTemplate.find(test_id.test_template_id).name] = t.raw_score.to_s
     end
     test_vector = StudentsController.get_test_vector(h).to_s
     r = Recommendation.find(:first, :conditions => ["key_vector = ?", test_vector])
