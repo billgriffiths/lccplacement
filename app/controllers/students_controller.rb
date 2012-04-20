@@ -101,8 +101,8 @@ class StudentsController < ApplicationController
      test_session.start_time = Time.now + params[:time_limit].to_i*60
      test_session.save
      @student = Student.find(test_results.student_id)
-     @test = TestTemplate.find(test_results.template_version_id)
-     flash[:notice] = "#{@student.first_name} #{@student.last_name} was successfully authorized to resume #{@test.description}."
+     @test = TestTemplate.find(TemplateVersion.find(@test_results.template_version_id).test_template_id)
+      flash[:notice] = "#{@student.first_name} #{@student.last_name} was successfully authorized to resume #{@test.description}."
    end
   end
 
