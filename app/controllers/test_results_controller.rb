@@ -278,7 +278,7 @@ class TestResultsController < ApplicationController
     for test_result in @test_results
       test_record = ""
       student=Student.find_by_id(test_result.student_id)
-      test = TestTemplate.find(TemplateVersion.find(@test_result.template_version_id).test_template_id)
+      test = TestTemplate.find(TemplateVersion.find(test_result.template_version_id).test_template_id)
       test_record << student.last_name+","
       test_record << student.first_name+","
 #        test_record.gsub!(/'/,"\\\\'")
@@ -342,7 +342,7 @@ class TestResultsController < ApplicationController
     for test_result in @test_results
       test_record = ""
       student=Student.find_by_id(test_result.student_id)
-      test = TestTemplate.find(TemplateVersion.find(@test_result.template_version_id).test_template_id)
+      test = TestTemplate.find(TemplateVersion.find(test_result.template_version_id).test_template_id)
       test_record << student.last_name+","
       test_record << student.first_name+","
 #        test_record.gsub!(/'/,"\\\\'")
