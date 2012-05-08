@@ -20,7 +20,9 @@ class ApplicationController < ActionController::Base
   
   def log_session_id
     session[:session_id]
-    logger.info "Session ID: " + request.session_options[:id]
+    if not request.session_options[:id].blank?
+      logger.info "Session ID: " + request.session_options[:id]
+    end
   end
 
   def redirect_to_https 
