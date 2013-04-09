@@ -5,6 +5,13 @@
 	<hr>
 	<h3><%= @test_list[0] %></h3>
 <% end -%>
+
+<% if @resource != "" %>
+	<hr>
+		<a href="" style="background: #337; color: #fff" onmouseover="this.style.color='#FF0000'" onmouseout="this.style.color='#fff'"
+		onclick="javascript:void window.open('/test_session/show_resource','1365195934901','width=500,height=600,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=0,top=0');return false;">Show Units</a>
+<% end -%>
+
 <% @test_list.shift %>
 <% n = @test_list.shift.to_i %>
 

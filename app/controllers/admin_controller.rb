@@ -16,13 +16,17 @@ class AdminController < ApplicationController
       @test = TestTemplate.find(params[:test])
       @test_version = TemplateVersion.find(@test.template_version_id)
       @test_list = TestSessionController.generate_test_form(@test_version.template)
+      @resource = @test_list[3]
+      @test_list.delete_at(3)
       session[:test_list] = @test_list
+      session[:resource] = @resource
       @answers = nil
       redirect_to( :action => 'show_test_try')
     end
   end
-
+  
   def show_test_try
+    @resource = session[:resource]
     @test_list = session[:test_list]
     @n = @test_list[2].to_i
     if @answers.nil?

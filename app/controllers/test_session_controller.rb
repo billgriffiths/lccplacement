@@ -1,6 +1,7 @@
 class TestSessionController < ApplicationController
   
-  before_filter :authorize_student_access, :except => [:student_login2, :staff_login, :show_recommendation, :show_find_next_test_in_sequence, :show_get_next_test, :show_session_results]
+  before_filter :authorize_student_access, :except => [:student_login2, :staff_login, :show_recommendation, 
+    :show_find_next_test_in_sequence, :show_get_next_test, :show_session_results, :show_resource]
   
   def TestSessionController.section_problem_list(section)
     problem_list = []
@@ -95,13 +96,19 @@ class TestSessionController < ApplicationController
     problem_list = []
     doc = REXML::Document.new(test_template)
     testsection = doc.root.elements["dict"]
-    problem_list <<  testsection.elements[2].elements[2].text # test name
+    problem_list <<  testsection.elements[2].elements[2].text # test name, 0 on problem_list
     number_questions = testsection.elements[2].elements[10].text
 #    @answers.items = Array.new(number_questions.to_i) {|i| i}
-    problem_list << testsection.elements[2].elements[4].text # test instructions
+    problem_list << testsection.elements[2].elements[4].text # test instructions, 1 on problem_list
     randomize = testsection.elements[2].elements[8].to_s 
 #    @numberQuestions = number_questions
-    problem_list << number_questions
+    problem_list << number_questions                        # 2 on problem_list
+    if testsection.elements[2].elements[11]
+      problem_list << testsection.elements[2].elements[12].text # resource URL for test if exists, 3 on problem_list
+    else
+      problem_list << ""
+    end
+#    resource = testsection.elements[2].elements[12].text 
     if randomize == "<true/>"
       entriesArray = shuffle(testsection.elements["array"].elements.to_a)
     else
@@ -303,7 +310,9 @@ class TestSessionController < ApplicationController
     @test_background_color = @test_version.test_template.color
     if @test_results.test_items.nil?
       @test_list = TestSessionController.generate_test_form(@test_version.template)
-      @test_results.test_items =  @test_list.join("<*>")
+      @resource = @test_list[3]
+      @test_list.delete_at(3)
+      @test_results.test_items = @test_list.join("<*>")
       @test_results.status = 'started'
     else
       @test_list = @test_results.test_items.split("<*>")
@@ -1058,4 +1067,8 @@ class TestSessionController < ApplicationController
       redirect_to(:action => "student_login2") and return false
     end
   end
+  
+  def show_resource
+  end
+
 end
