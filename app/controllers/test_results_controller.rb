@@ -104,6 +104,29 @@ class TestResultsController < ApplicationController
     @test_lists.sort!
   end
 
+    def get_recommendation_summary_by_date
+      if request.post?
+        @course = params["Course"]
+        start_time = Time.local(params["start_date"]["year"],params["start_date"]["month"],params["start_date"]["day"])
+        end_time = Time.local(params["end_date"]["year"],params["end_date"]["month"],params["end_date"]["day"])
+        next_day = end_time.tomorrow
+        @dates = "#{start_time.strftime('%m/%d/%Y')} to #{end_time.strftime('%m/%d/%Y')}."
+        @recSet = Set.new
+        @recHash = {}
+        @recs = []
+        @sessions = TestSession.find(:all, :conditions => ["status = ? and start_time >= ? and start_time < ?","finished",start_time,next_day])
+        for s in @sessions
+          theRec = TestSessionController.get_recommendation(s.id)
+          if !@recSet.include?(theRec)
+            @recSet.add(theRec)
+            @recs << theRec
+            @recHash[theRec] = 0
+          end
+          @recHash[theRec] += 1
+        end
+      end
+    end
+
   def get_recommendations_by_date
     if request.post?
       @course = params["Course"]
