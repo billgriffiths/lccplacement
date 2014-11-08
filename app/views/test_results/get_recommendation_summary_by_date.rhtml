@@ -1,0 +1,19 @@
+<% if @recommendations.blank? %>
+
+<h1>No recommendations for Dates <%=h @dates %></h1>
+
+<% else %>
+<h1>Recommendations for Dates <%=h @dates %></h1>
+<table border=1>
+	<tr>
+		<td>number</td>
+		<td>recommendation</td>
+	</tr>
+<% for r in @recs %>
+	<tr>
+		<td align=center ><%= @recHash[r] %></td>
+		<td align=left width=800px><%= r %></td>
+	</tr>
+<% end %>
+</table>
+<% end %>
